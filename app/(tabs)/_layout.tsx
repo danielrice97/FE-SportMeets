@@ -24,14 +24,36 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="chats"
         options={{
-          title: 'Explore',
+          title: 'Chats',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'chatbox-ellipses' : 'chatbox-ellipses-outline'} color={color} />
           ),
         }}
       />
+      
+      <Tabs.Screen
+        name="createEvent"
+        options={{
+          title: 'Create',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'add' : 'add-outline'} color={color} />
+          ),
+        }}
+      />
+
+<Tabs.Screen
+        name="account"
+        options={{
+          title: 'Account',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'person-circle' : 'person-circle-outline'} color={color} />
+          ),
+        }}
+      />
+
+
     </Tabs>
   );
 }

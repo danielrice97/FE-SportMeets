@@ -8,7 +8,6 @@ export default function HomeScreen() {
   return (
     <View>
       <Text style={styles.text}>SportMeets</Text>
-
       <Text
         style={styles.search}
         aria-label='Label for Username'
@@ -16,7 +15,7 @@ export default function HomeScreen() {
         Search a sport by location
       </Text>
       <View style={styles.container}>
-        {/* <Input placeholder='BASIC INPUT' /> */}
+        <Input placeholder='BASIC INPUT' />
         <TextInput
           type='text'
           id='input'
@@ -27,8 +26,8 @@ export default function HomeScreen() {
           defaultValue='Search by location!'
         />
         <Dropdown />
-        <Cards />
       </View>
+      <Cards />
     </View>
   );
 }
@@ -36,7 +35,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
   },
   text: {
     color: "blue",

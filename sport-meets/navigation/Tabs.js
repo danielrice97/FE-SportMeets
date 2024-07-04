@@ -28,13 +28,11 @@ export default function Tabs() {
               iconName = "account";
               break;
           }
-
-          // You can return any component that you like here!
           return (
             <MaterialCommunityIcons name={iconName} size={size} color={color} />
           );
         },
-        tabBarStyle: styles.container,
+        tabBarStyle: styles.tab_bar,
       })}
     >
       <Tab.Screen
@@ -58,7 +56,7 @@ export default function Tabs() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  tab_bar: {
     margin: 10,
     borderRadius: 20,
     height: 60,

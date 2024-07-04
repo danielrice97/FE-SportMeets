@@ -28,18 +28,20 @@ const testEventChats = [
   },
 ];
 
-function handlePress(){
-  
+function handlePress({ navigation }) {
+  navigation.navigate("Messages")
 }
 
-export default function ChatsScreen() {
+export default function ChatsScreen({navigation}) {
   return (
     <View style={styles.container}>
       <FlatList
         data={testEventChats}
         keyExtractor={(item) => item.event_id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.event} onPress={handlePress}>
+          <TouchableOpacity style={styles.event} onPress={() => navigation.navigate("Messages", {
+            name: item.event_name
+          })}>
             <Text style={styles.text}>{item.event_name}</Text>
             <Text style={styles.text}>
               {item.created_at}

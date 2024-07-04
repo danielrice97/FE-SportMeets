@@ -6,8 +6,8 @@ export default function HomeScreen() {
   return (
     <View>
       <Text style={styles.text}>SportMeets</Text>
-      <br />
-      <br />
+      {/* <br />
+      <br /> */}
       <Text
         style={styles.search}
         aria-label='Label for Username'

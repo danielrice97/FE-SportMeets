@@ -1,10 +1,57 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, TextInput, StyleSheet } from "react-native";
+import React from "react";
+import Dropdown from "../components/dropdown";
 
 export default function HomeScreen() {
   return (
     <View>
-      <Text>HomeScreen</Text>
+      <Text style={styles.text}>SportMeets</Text>
+      <br />
+      <br />
+      <Text
+        style={styles.search}
+        aria-label='Label for Username'
+        nativeID='labelUsername'>
+        Search a sport by location
+      </Text>
+      <View style={styles.container}>
+        <TextInput
+          type='text'
+          id='input'
+          name='name'
+          aria-label='input'
+          aria-labelledby='labelUsername'
+          style={styles.input}
+          defaultValue='Search by location!'
+        />
+        <Dropdown />
+      </View>
     </View>
-  )
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  text: {
+    color: "blue",
+    fontWeight: "bold",
+    fontSize: 30,
+    marginLeft: 10,
+  },
+  input: {
+    height: 40,
+    width: 190,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginRight: 30,
+    marginLeft: 10,
+    borderRadius: 5,
+  },
+
+  search: {
+    marginLeft: 10,
+  },
+});

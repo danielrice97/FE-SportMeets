@@ -16,6 +16,7 @@ export default function AccountScreen({ navigation }) {
         <Text style={styles.title}>Account</Text>
         <Button title="Register" onPress={() => navigation.navigate('Register')} />
         <Button title="Login" onPress={() => navigation.navigate('Login')} />
+          <Button title="User Account" onPress={() => navigation.navigate('UserProfile')} />
       </View>
     );
   }

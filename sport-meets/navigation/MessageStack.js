@@ -1,5 +1,3 @@
-export default function MessageStack() {
-    return (
-        <StackNavigator></StackNavigator>
-    )
-}
+// export default function MessageStack() {
+//   return <StackNavigator></StackNavigator>;
+// }

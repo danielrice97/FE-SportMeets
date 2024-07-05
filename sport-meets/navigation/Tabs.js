@@ -4,13 +4,23 @@ import ChatsScreen from "../screens/ChatsScreen";
 import CreateEventScreen from "../screens/CreateEventScreen";
 import AccountScreen from "../screens/AccountScreen";
 import { StyleSheet } from "react-native";
+import SingleSportScreen from "../screens/singleSportScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 
 const Tab = createBottomTabNavigator();
 
 export default function Tabs() {
   return (
     <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: styles.container,
+      }}>
+      <Tab.Screen name='Home' component={HomeScreen} />
+      <Tab.Screen name='Chats' component={ChatsScreen} />
+      <Tab.Screen name='Create' component={CreateEventScreen} />
+      <Tab.Screen name='Account' component={AccountScreen} />
+     
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName;

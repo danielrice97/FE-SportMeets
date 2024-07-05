@@ -44,7 +44,7 @@ export default function Tabs() {
         },
         tabBarStyle: styles.tab_bar,
       })}
-    >
+  
       <Tab.Screen
         name="Home"
         component={HomeScreen}

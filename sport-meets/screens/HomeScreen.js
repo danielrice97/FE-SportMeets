@@ -1,10 +1,10 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import React from "react";
 import Dropdown from "../components/dropdown";
-import Cards from "../components/eventCards";
+import SportCards from "../components/eventCards";
 import { Input } from "@rneui/themed";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   return (
     <View>
       <Text style={styles.text}>SportMeets</Text>
@@ -27,7 +27,7 @@ export default function HomeScreen() {
         />
         <Dropdown />
       </View>
-      <Cards />
+      <SportCards navigation={navigation} />
     </View>
   );
 }

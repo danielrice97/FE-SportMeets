@@ -44,7 +44,7 @@ const events = [
   },
 ];
 
-const Item = ({ event }) => (
+const Item = ({ event, navigation }) => (
   <Card>
     <Card.Title>{event.event_name}</Card.Title>
     <Card.Divider />
@@ -61,17 +61,17 @@ const Item = ({ event }) => (
         marginBottom: 0,
       }}
       title='VIEW NOW'
-      onPress={() => navigation.navigate("Profile", { name: "Jane" })}
+      onPress={() => navigation.navigate("Single_Sport", event)}
     />
   </Card>
 );
 
-export default function List({ navigation }) {
+export default function SportCards({ navigation }) {
   return (
     <SafeAreaView>
       <FlatList
         data={events}
-        renderItem={({ item }) => <Item event={item} />}
+        renderItem={({ item }) => <Item event={item} navigation={navigation} />}
         keyExtractor={(item, index) => index.toString()}
       />
     </SafeAreaView>

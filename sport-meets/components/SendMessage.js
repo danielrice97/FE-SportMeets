@@ -3,8 +3,6 @@ import {
   View,
   TextInput,
   StyleSheet,
-  Button,
-  KeyboardAvoidingView,
   Pressable,
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -21,13 +19,12 @@ export default function SendMessage({ handleSend }) {
   }
 
   return (
-    <KeyboardAvoidingView behaviour={"height"}>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           value={message}
           onChangeText={setMessage}
-          placeholder="Type your message..."
+          placeholder="Message"
           multiline
           numberOfLines={2}
         />
@@ -35,7 +32,6 @@ export default function SendMessage({ handleSend }) {
           <MaterialCommunityIcons name="send" style={styles.sendButton} onPress={handlePress}/>
         </Pressable>
       </View>
-    </KeyboardAvoidingView>
   );
 }
 

@@ -5,7 +5,6 @@ import CreateEventScreen from "../screens/CreateEventScreen";
 import AccountScreen from "../screens/AccountScreen";
 import { StyleSheet } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import MessageStack from "./MessageStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +41,7 @@ export default function Tabs() {
       />
       <Tab.Screen
         name="Chats"
-        component={MessageStack}
+        component={ChatsScreen}
       />
       <Tab.Screen
         name="Create"

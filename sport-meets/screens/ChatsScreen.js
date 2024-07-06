@@ -36,7 +36,8 @@ export default function ChatsScreen({navigation}) {
         keyExtractor={(item) => item.event_id}
         renderItem={({ item }) => (
           <Pressable style={styles.event} onPress={() => navigation.navigate("Messages", {
-            name: item.event_name
+            name: item.event_name,
+            id: item.event_id
           })}>
             <Text style={styles.text}>{item.event_name}</Text>
             <Text style={styles.text}>

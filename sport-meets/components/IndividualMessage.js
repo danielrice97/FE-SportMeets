@@ -20,10 +20,11 @@ export default function IndividualMessage({ item }) {
 const styles = StyleSheet.create({
   messageContainer: {
     maxWidth: "80%",
-    padding: 10,
+    padding: 8,
     borderRadius: 12,
-    marginVertical: 5,
+    marginVertical: 4,
     marginHorizontal: 10,
+    elevation: 2,
   },
   senderBubble: {
     backgroundColor: "#007aff",
@@ -37,22 +38,23 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontWeight: "bold",
-    marginBottom: 5,
+    marginBottom: 3,
   },
   senderText: {
     color: "#eee"
   },
   messageBody: {
-    marginBottom: 5,
+    marginBottom: 3,
+    lineHeight: 16
   },
   timestamp: {
     fontSize: 12,
     alignSelf: "flex-end",
   },
   senderTimestamp: {
-    color: "#ccc",
+    color: "#ddd",
   },
   receiverTimestamp: {
-    color: "#666",
+    color: "#777",
   },
 });

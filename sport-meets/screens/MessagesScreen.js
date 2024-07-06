@@ -28,20 +28,22 @@ const testMessages = [
 ];
 
 const formattedMessages = testMessages.map((message) => {
-  return {...message,
-    created_at: new Date(message.created_at).toLocaleString()
-  }
-})
+  return {
+    ...message,
+    created_at: new Date(message.created_at).toLocaleString(),
+  };
+});
 
 export default function MessagesScreen({ route, navigation }) {
-  const userContext = "Mo"; // This needs to be upadted once we implement user context upon login
-  const { name, id } = route.params; // id will be for grabbing correct messages from DB
+  const userContext = "Mo"; // This needs to be updated once we implement user context upon login
+  const { name, id } = route.params; // id will be needed grabbing correct messages from DB
   const [messages, setMessages] = React.useState(formattedMessages);
   React.useEffect(() => {
     navigation.setOptions({
       title: name,
     });
   }, []);
+
   function handleSend(newMessage) {
     const newMessageObject = {
       message_id: messages.length + 1,
@@ -50,17 +52,25 @@ export default function MessagesScreen({ route, navigation }) {
       event_id: id,
       created_at: new Date().toLocaleString(),
     };
-    setMessages((prevMessages) => [...prevMessages, newMessageObject])
+    setMessages((prevMessages) => [...prevMessages, newMessageObject]);
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={messages}
         keyExtractor={(item) => item.message_id}
         renderItem={({ item }) => <IndividualMessage item={item} />}
-      />
-      <SendMessage handleSend={handleSend} />
+      >
+      </FlatList>
+        <SendMessage handleSend={handleSend} />
     </View>
   );
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

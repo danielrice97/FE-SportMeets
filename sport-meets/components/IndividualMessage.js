@@ -21,17 +21,19 @@ const styles = StyleSheet.create({
   messageContainer: {
     maxWidth: "80%",
     padding: 10,
-    borderRadius: 15,
+    borderRadius: 12,
     marginVertical: 5,
     marginHorizontal: 10,
   },
   senderBubble: {
-    backgroundColor: "#4169E1",
+    backgroundColor: "#007aff",
     alignSelf: "flex-end",
+    borderBottomRightRadius: 3
   },
   receiverBubble: {
     backgroundColor: "white",
     alignSelf: "flex-start",
+    borderBottomLeftRadius: 3
   },
   userName: {
     fontWeight: "bold",

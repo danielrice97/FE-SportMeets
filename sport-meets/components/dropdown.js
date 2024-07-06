@@ -1,25 +1,22 @@
 import { Picker } from "@react-native-picker/picker";
-import { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-const Dropdown = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState("choose");
-
+const Dropdown = ({category, setCategory}) => {
   return (
     <View>
       <Text
         style={styles.search}
         aria-label='Label for Username'
-        nativeID='labelUsername'>
+        id='labelUsername'>
         Choose a sport
       </Text>
-
       <Picker
         style={styles.dropdown}
-        selectedValue={selectedLanguage}
-        onValueChange={(itemValue, itemIndex) =>
-          setSelectedLanguage(itemValue)
-        }>
+        selectedValue={category}
+        onValueChange={(value) =>{
+          setCategory(value)
+        }
+        } >
         <Picker.Item label='football' value='football' />
         <Picker.Item label='basketball' value='basketball' />
         <Picker.Item label='hockey' value='hockey' />
@@ -31,13 +28,15 @@ const Dropdown = () => {
 
 const styles = StyleSheet.create({
   search: {
-    marginRight: 10,
+    marginRight: 50,
   },
   dropdown: {
-    maxWidth: "100%",
-    height: 30,
+    height: 40,
+    width: 190,
     borderColor: "gray",
     borderWidth: 1,
+    marginRight: 30,
+    marginLeft: 10,
     borderRadius: 5,
   },
 });

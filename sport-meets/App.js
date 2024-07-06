@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Tabs from "./navigation/Tabs";
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
+import SingleSportScreen from "./screens/singleSportScreen";
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ export default function App() {
           component={Tabs}
           options={{ headerShown: false }}
         />
+        <Stack.Screen name="event" component={SingleSportScreen} />
         <Stack.Screen name='Register' component={RegisterScreen} />
         <Stack.Screen name='Login' component={LoginScreen} />
       </Stack.Navigator>

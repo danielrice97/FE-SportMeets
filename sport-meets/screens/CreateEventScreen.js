@@ -29,7 +29,6 @@ export default function CreateEventScreen() {
         value={sportType}
         onChangeText={setSportType}
       />
-
       <Text style={styles.label}>Event Name:</Text>
       <TextInput
         style={styles.input}
@@ -37,7 +36,6 @@ export default function CreateEventScreen() {
         value={eventName}
         onChangeText={setEventName}
       />
-
       <Text style={styles.label}>Event Image URL:</Text>
       <TextInput
         style={styles.input}
@@ -45,7 +43,6 @@ export default function CreateEventScreen() {
         value={eventImage}
         onChangeText={setEventImage}
       />
-
       <Text style={styles.label}>Event Description:</Text>
       <TextInput
         style={styles.input}
@@ -53,7 +50,6 @@ export default function CreateEventScreen() {
         value={eventDescription}
         onChangeText={setEventDescription}
       />
-
       <Text style={styles.label}>Event Date:</Text>
       <TextInput
         style={styles.input}
@@ -61,7 +57,6 @@ export default function CreateEventScreen() {
         value={eventDate}
         onChangeText={setEventDate}
       />
-
       <Text style={styles.label}>Event Location:</Text>
       <TextInput
         style={styles.input}
@@ -69,7 +64,6 @@ export default function CreateEventScreen() {
         value={eventLocation}
         onChangeText={setEventLocation}
       />
-
       <Button title="Create Event" onPress={handleCreateEvent} />
     </View>
   );

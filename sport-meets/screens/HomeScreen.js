@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React, { useState } from "react";
 import Dropdown from "../components/dropdown";
 import SportCards from "../components/eventCards";

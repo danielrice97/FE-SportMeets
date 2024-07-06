@@ -8,7 +8,7 @@ const testMessages = [
     message_body: "Hi, I would like to join this event",
     sender: "DannyBoy",
     event_id: 1,
-    created_at: "2024-07-12 17:05:00",
+    created_at: "2024-07-12 17:00:00",
   },
   {
     message_id: 2,
@@ -22,7 +22,7 @@ const testMessages = [
     message_body: "Hey the weather is looking nice!",
     sender: "Alex",
     event_id: 1,
-    created_at: "2024-07-12 17:00:00",
+    created_at: "2024-07-12 17:05:00",
   },
 ];
 

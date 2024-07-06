@@ -1,5 +1,6 @@
-import { View, ScrollView, Text, FlatList } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 import React from "react";
+import IndividualMessage from "../components/IndividualMessage";
 
 const testMessages = [
   {
@@ -7,42 +8,41 @@ const testMessages = [
     message_body: "Hi, I would like to join this event",
     sender: "DannyBoy",
     event_id: 1,
+    created_at: "2024-07-12 17:05:00",
   },
   {
     message_id: 2,
     message_body: "Welcome to the world of Social Meets Up!",
     sender: "Mo",
     event_id: 1,
+    created_at: "2024-07-12 17:02:00",
   },
   {
     message_id: 3,
     message_body: "Hey the weather is looking nice!",
     sender: "Alex",
     event_id: 1,
+    created_at: "2024-07-12 17:00:00",
   },
 ];
 
 export default function MessagesScreen({ route, navigation }) {
   const { name } = route.params;
-  const [messages, setMessages] = React.useState([])
+  const [messages, setMessages] = React.useState([]);
   React.useEffect(() => {
     navigation.setOptions({
       title: name,
     });
-    setMessages(testMessages)
-  }, [])
+    setMessages(messages);
+  }, []);
 
   return (
-    <ScrollView>
+    <View>
       <FlatList
-        data={messages}
+        data={testMessages}
         keyExtractor={(item) => item.message_id}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.message_body}</Text>
-          </View>
-        )}
+        renderItem={({ item }) => <IndividualMessage item={item} />}
       />
-    </ScrollView>
+    </View>
   );
 }

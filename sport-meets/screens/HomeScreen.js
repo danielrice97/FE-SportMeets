@@ -3,6 +3,7 @@ import React from "react";
 import Dropdown from "../components/dropdown";
 import SportCards from "../components/eventCards";
 import { Input } from "@rneui/themed";
+import SocketComponent from "../components/socketIo";
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -27,6 +28,7 @@ export default function HomeScreen({ navigation }) {
         />
         <Dropdown />
       </View>
+      <SocketComponent />
       <SportCards navigation={navigation} />
     </View>
   );

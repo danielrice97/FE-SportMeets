@@ -4,6 +4,7 @@ import AccountScreen from '../screens/AccountScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import LoginScreen from '../screens/LoginScreen';
 import CreateEventScreen from '../screens/CreateEventScreen';
+import UserProfileScreen from '../screens/UserProfileScreen'
 import HomeScreen from '../screens/HomeScreen';
 import Tabs from './Tabs';
 
@@ -17,6 +18,7 @@ export default function StackNavigator() {
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="CreateEvent" component={CreateEventScreen} />
+      <Stack.Screen name="UserProfile" component={UserProfileScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
     </Stack.Navigator>
   );

@@ -1,23 +1,22 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useState } from "react";
 import Dropdown from "../components/dropdown";
 import SportCards from "../components/eventCards";
 import { Input } from "@rneui/themed";
 import SocketComponent from "../components/socketIo";
 
 export default function HomeScreen({ navigation }) {
+  const [category, setCategory] = useState("");
   return (
-    <View>
+    <ScrollView>
       <Text style={styles.text}>SportMeets</Text>
-      <Text
-        style={styles.search}
+      <Text style={styles.search}
         aria-label='Label for Username'
         nativeID='labelUsername'>
         Search a sport by location
       </Text>
       <View style={styles.container}>
-        <Input placeholder='BASIC INPUT' />
-        <TextInput
+        <Input placeholder='Search By Location'
           type='text'
           id='input'
           name='name'
@@ -31,6 +30,11 @@ export default function HomeScreen({ navigation }) {
       <SocketComponent />
       <SportCards navigation={navigation} />
     </View>
+          style={styles.input} />
+        <Dropdown category={category} setCategory={setCategory}/>
+      </View>  
+      <SportCards navigation={navigation} category={category}/>
+      </ScrollView>
   );
 }
 

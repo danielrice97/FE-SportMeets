@@ -10,31 +10,29 @@ export default function HomeScreen({ navigation }) {
   return (
     <ScrollView>
       <Text style={styles.text}>SportMeets</Text>
-      <Text style={styles.search}
+      <Text
+        style={styles.search}
         aria-label='Label for Username'
         nativeID='labelUsername'>
         Search a sport by location
       </Text>
       <View style={styles.container}>
-        <Input placeholder='Search By Location'
+        <Input
+          placeholder='Search By Location'
           type='text'
           id='input'
           name='name'
           aria-label='input'
           aria-labelledby='labelUsername'
           style={styles.input}
-          defaultValue='Search by location!'
+          value={location}
+          onChangeText={setLocation}
         />
-        <Dropdown />
+        <Dropdown category={category} setCategory={setCategory} />
       </View>
       <SocketComponent />
-      <SportCards navigation={navigation} />
-    </View>
-          style={styles.input} />
-        <Dropdown category={category} setCategory={setCategory}/>
-      </View>  
-      <SportCards navigation={navigation} category={category}/>
-      </ScrollView>
+      <SportCards navigation={navigation} category={category} />
+    </ScrollView>
   );
 }
 

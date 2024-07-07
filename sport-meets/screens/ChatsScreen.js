@@ -3,7 +3,7 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
 } from "react-native";
 import React from "react";
 
@@ -28,24 +28,23 @@ const testEventChats = [
   },
 ];
 
-function handlePress(){
-  
-}
-
-export default function ChatsScreen() {
+export default function ChatsScreen({navigation}) {
   return (
     <View style={styles.container}>
       <FlatList
         data={testEventChats}
         keyExtractor={(item) => item.event_id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.event} onPress={handlePress}>
+          <Pressable style={styles.event} onPress={() => navigation.navigate("Messages", {
+            name: item.event_name,
+            id: item.event_id
+          })}>
             <Text style={styles.text}>{item.event_name}</Text>
             <Text style={styles.text}>
               {item.created_at}
               {item.event_organiser}
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         )}
       />
     </View>

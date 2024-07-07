@@ -45,6 +45,7 @@ const events = [
 
 
 const Item = ({ event, navigation, category }) => {
+
   
   return <Card>
     <Card.Title>{event.event_name}</Card.Title>

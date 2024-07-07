@@ -41,16 +41,15 @@ const events = [
 ];
 
 const Item = ({ event, navigation, category }) => {
-  return (
-    <Card>
-      <Card.Title>{event.event_name}</Card.Title>
-      <Card.Divider />
-      <Card.Image style={{ padding: 0 }} source={{ uri: event.img_url }} />
-      <Text style={{ marginBottom: 10 }}>{event.description}</Text>
-      <Text style={{ marginBottom: 10 }}>
-        Spaces Available: {event.event_spaces_available}
-      </Text>
 
+
+  
+  return <Card>
+    <Card.Title>{event.event_name}</Card.Title>
+    <Card.Divider />
+    <Card.Image style={{ padding: 0 }} source={{ uri: event.img_url }} />
+    <Text style={{ marginBottom: 10 }}>{event.description}</Text>
+    <Text style={{ marginBottom: 10 }}>Spaces Available: {event.event_spaces_available}</Text>
       <Button
         //  icon={
         //   <Icon name='code' color='#ffffff' iconStyle={{ marginRight: 10 }} />

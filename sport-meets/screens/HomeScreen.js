@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Dropdown from "../components/dropdown";
 import SportCards from "../components/eventCards";
 import { Input } from "@rneui/themed";
+import SocketComponent from "../components/socketIo";
 
 export default function HomeScreen({ navigation }) {
   const [category, setCategory] = useState("");
@@ -21,6 +22,14 @@ export default function HomeScreen({ navigation }) {
           name='name'
           aria-label='input'
           aria-labelledby='labelUsername'
+          style={styles.input}
+          defaultValue='Search by location!'
+        />
+        <Dropdown />
+      </View>
+      <SocketComponent />
+      <SportCards navigation={navigation} />
+    </View>
           style={styles.input} />
         <Dropdown category={category} setCategory={setCategory}/>
       </View>  

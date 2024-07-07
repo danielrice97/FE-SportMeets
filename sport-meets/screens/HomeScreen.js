@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
           aria-labelledby='labelUsername'
           style={styles.input}
           value={location}
-          onChangeText={setLocation}
+          //onChangeText={setLocation}
         />
         <Dropdown category={category} setCategory={setCategory} />
       </View>

@@ -52,9 +52,8 @@ export default function SocketComponent() {
         data={messages}
         renderItem={({ item }) => <Text style={styles.message}>{item}</Text>}
         keyExtractor={(item, index) => index.toString()}
-      />{" "}
+      />
       <View style={styles.inputContainer}>
-        {" "}
         <TextInput
           style={styles.input}
           value={message}

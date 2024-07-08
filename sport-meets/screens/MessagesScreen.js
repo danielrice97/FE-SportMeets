@@ -55,19 +55,20 @@ export default function MessagesScreen({ route, navigation }) {
     setMessages((prevMessages) => [...prevMessages, newMessageObject]);
   }
 
+  //do a use effect
+
+  //(as a use effect) send socket msg to join room event handler passing the event id as room name
+
   return (
     <View style={styles.container}>
       <FlatList
         data={messages}
         keyExtractor={(item) => item.message_id}
-        renderItem={({ item }) => <IndividualMessage item={item} />}
-      >
-      </FlatList>
-        <SendMessage handleSend={handleSend} />
+        renderItem={({ item }) => <IndividualMessage item={item} />}></FlatList>
+      <SendMessage handleSend={handleSend} />
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {

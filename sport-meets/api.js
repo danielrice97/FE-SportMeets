@@ -1,11 +1,18 @@
-import axios from 'axios'
+import axios from "axios";
 
 const baseApi = axios.create({
-    baseURL: "http://192.168.200.17:9092/api/sportmeets"
-})
-
-export function getAllEvents() {
-    return baseApi.get("/events").then((data)=>{
-        return data
-    })
+  baseURL: "https://be-sportmeets-py.onrender.com/api/sportmeets",
+});
+console.log(baseApi);
+export function getAllEvents(queries) {
+  const { params } = queries;
+  if (params.category === "select") {
+    return baseApi.get("/events").then(({ data }) => {
+      return data.events;
+    });
+  } else {
+    return baseApi.get("/events", queries).then(({ data }) => {
+      return data.events;
+    });
+  }
 }

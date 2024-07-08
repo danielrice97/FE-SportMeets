@@ -1,31 +1,41 @@
-const express = require("express"); //using the express server
-const http = require("http");
-const socketIo = require("socket.io"); //socket.io server/connection needs to share the reosurce with express
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
 
 const app = express();
-//create a server variable
-
 const server = http.createServer(app);
-//import socket.io
-const io = socketIo(server); //server variable socket.io is now linked to express server, connections are different with socket.io, don't use http, use specil socket msg
-//call socket.io
+const io = socketIo(server);
 
-app.use(express.json());
-//Handle a new socket connection, like listening on a server, any connection initiated by the client, handle in this .on conenction
-io.on("connection", (socket) => {
-  console.log("a user connected");
+io.on('connection', (socket) => {
+console.log(`New client connected: ${socket.id}`);//new client connected, allowing socket to send msgs to teh joined room
 
-  //Handle receiving a message
-
-  socket.on("message", (msg) => {
-    console.log("message: " + msg);
-    io.emit("message", msg); // Broadcast the message to all clients and update db
-  });
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
-  });
+// Join a room
+//EVENT HANDLER
+socket.on('joinRoom', (room) => {
+socket.join(room); //creating the join to the room
+console.log(`${socket.id} joined room ${room}`);
 });
 
-server.listen(5550, () => {
-  console.log('Server is running"');
+// Send a message to all clients in a room 
+//EVENT HANDLER
+socket.on('sendToRoom', ({ room, message }) => {
+io.to(room).emit('message', message);
 });
+
+socket.on('disconnect', () => {
+console.log('Client disconnected');
+});
+});
+
+server.listen(4000, () => console.log('Server is running on port 4000'));
+
+/* 
+socket.io for msgs to be sent between two or more ppl, they need to join a socket 
+STEPS
+
+1. Only show chats that the user has joined (only when we have the db)
+2. If chats display correctly (db fetch all user events)
+3. When enter chat is clicked and user goes to the room 
+a.client aspect: socket.io  needs to emit a msg to server to join that event room (socket.send), as well as any msgs need to be sent using room id + msg
+b.server: using socket.io it needs to have 2 socket event handlers (join and send to room event handlers)
+/*

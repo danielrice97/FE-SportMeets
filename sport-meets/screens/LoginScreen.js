@@ -1,15 +1,41 @@
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
+import { getUser } from '../api';
+import { useContext } from 'react';
+import { UserContext } from "../UserContext"
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    console.log('User Logged In:', { username, password });
-    navigation.navigate('Tabs');
-  };
+  const [incorrectLogin, setIncorrectLogin] = useState(false);
+  const {setUser} =  useContext(UserContext)
 
+
+  const handleLogin = () => {
+  //  console.log('User Logged In:', { username, password });
+    getUser(username).then((data)=> {
+       if(data["username"] === username && data["password"] === password) {
+         setUser(data)
+         navigation.navigate('Account')
+       } else {
+        setIncorrectLogin(true)
+       }
+    }).catch((err)=> {
+      setIncorrectLogin(true)
+    })
+
+  }
+
+  const tryAgain = () => {
+    setIncorrectLogin(false)
+  }
+
+  const Register = () => {
+    navigation.navigate("Register")
+  }
+
+  if (incorrectLogin === false) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
@@ -29,6 +55,15 @@ export default function LoginScreen({ navigation }) {
       <Button title="Login" onPress={handleLogin} />
     </View>
   );
+} else {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Incorrect Login Details</Text>
+      <Button title="Try Login Again" onPress={tryAgain} />
+      <Button title="Register" onPress={Register} />
+    </View>
+  );
+}
 }
 
 const styles = StyleSheet.create({

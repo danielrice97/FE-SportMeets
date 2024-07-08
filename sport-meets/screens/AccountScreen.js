@@ -1,34 +1,23 @@
 import { View, Text, Button, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
+import { UserContext } from '../UserContext';
+import { useContext } from 'react';
 
 export default function AccountScreen({ navigation }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const {user} = useContext(UserContext)
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUser(null);
-  };
-
-  if (!isLoggedIn) {
+  if (!user) {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Account</Text>
         <Button title="Register" onPress={() => navigation.navigate('Register')} />
         <Button title="Login" onPress={() => navigation.navigate('Login')} />
-          <Button title="User Account" onPress={() => navigation.navigate('UserProfile')} />
       </View>
     );
+  } else {
+  return navigation.navigate('UserProfile')
   }
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome, {user.username}!</Text>
-      <Text>Name: {user.name}</Text>
-      <Text>Events Created: {/* Display user's events here */}</Text>
-      <Button title="Logout" onPress={handleLogout} />
-    </View>
-  );
 }
 
 const styles = StyleSheet.create({

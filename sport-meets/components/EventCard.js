@@ -4,12 +4,12 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 export default function EventCard({ event }) {
   return (
     <View style={styles.card}>
-      <Image source={{ uri: event.image }} style={styles.image} />
+      <Image source={{ uri: event.event_img_url }} style={styles.image} />
       <View style={styles.details}>
-        <Text style={styles.eventName}>{event.name}</Text>
-        <Text style={styles.eventDescription}>{event.description}</Text>
-        <Text style={styles.eventDate}>{event.date}</Text>
-        <Text style={styles.eventLocation}>{event.location}</Text>
+        <Text style={styles.eventName}>{event.event_name}</Text>
+        <Text style={styles.eventDescription}>{event.event_description}</Text>
+        <Text style={styles.eventDate}>{event.created_at}</Text>
+        <Text style={styles.eventLocation}>{event.event_location}</Text>
       </View>
     </View>
   );

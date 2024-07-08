@@ -1,13 +1,17 @@
 import React from "react";
-import { View, ScrollView, StyleSheet, Image } from "react-native";
-import { Text, Card, Button, Icon } from "@rneui/themed";
+import { View, ScrollView, StyleSheet } from "react-native";
+import { Text, Card, Button } from "@rneui/themed";
 import { useState } from "react";
+import ChatsScreen from "./ChatsScreen";
+import { updateSpacesAvailable } from "../api";
 
 export default function SingleSportScreen({ navigation, route }) {
   const { event } = route.params;
+  console.log(event)
   const [spacesAvailable, setSpacesAvailable] = useState(
     event.event_spaces_available
   );
+  const [isLoading, setIsLoading] = useState(false)
   const users = [
     {
       username: "Mo",
@@ -34,7 +38,8 @@ export default function SingleSportScreen({ navigation, route }) {
   const organiser = users.find(
     (user) => user.username === event.event_organiser
   );
-  console.log(organiser);
+  if(isLoading) return <Text>We are adding you the event...</Text>
+  
   return (
     <ScrollView>
       <View>
@@ -49,34 +54,74 @@ export default function SingleSportScreen({ navigation, route }) {
             style={{ padding: 0 }}
             source={{ uri: event.event_img_url }}
           />
-          <Text style={styles.fonts}>Location: {event.event_location}</Text>
-          <Text style={styles.fonts}>
-            Sport:{" "}
+          <Text style={styles.text}>
+             <Text style={styles.bold}>Event Location: </Text>
+             {event.event_location}
+             </Text>
+
+
+             
+          <Text style={styles.text}>
+          <Text style={styles.bold}>
+            Sport:</Text>
             {event.event_category.slice(0, 1).toUpperCase() +
               event.event_category.slice(1)}
           </Text>
-          <Text style={styles.fonts}>Description: {event.event_description}</Text>
+
+          <Text style={styles.text}>
+          <Text style={styles.bold}>
+          Description: </Text>
+          {event.event_description}
+          </Text>
+
           <View style={styles.avatarHostContain}>
             <Card.Image
               source={{ uri: organiser.avatar_url }}
               style={styles.avatar}
             />
-            <Text style={styles.fonts}>Host:{event.event_organiser}</Text>
+            <Text style={styles.text}>
+            <Text style={styles.bold}>
+            Host:
+            </Text>
+            {event.event_organiser}
+            </Text>
           </View>
-          <Text style={styles.fonts}>Spaces Available: {spacesAvailable}</Text>
-          <Text style={styles.fonts}>Event Date: {event.created_at}</Text>
+          <Text style={styles.text}>
+          <Text style={styles.bold}>
+          Spaces Available: 
+          </Text>
+           {spacesAvailable}</Text>
+
+          <Text style={styles.text}>
+          <Text style={styles.bold}>Event Date:</Text>
+           {event.created_at}
+           </Text>
           <Button
             title={`Join ${event.event_name}`}
             onPress={() => {
-              setSpacesAvailable((current) => {
-                return current - 1;
-              });
+             
+              setIsLoading(true)
+               updateSpacesAvailable(event)
+               .then((data)=>{
+                setIsLoading(false)
+                setSpacesAvailable((current) => {
+                  return current - 1;
+                });
+                navigation.navigate("Messages", {
+                  name: event.event_name,
+                  id: event.event_id
+                 })
+                return data
+               })
+               .catch((err)=>{
+           
+               })
             }}
           />
         </Card>
       </View>
-    </ScrollView>
-  );
+      </ScrollView>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -87,6 +132,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 9,
     fontSize: 25,
+    fontWeight: 'bold',
   },
   user: {
     flexDirection: "row",
@@ -111,4 +157,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  bold: {
+    fontWeight: "bold",
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 10,
+  }
 });

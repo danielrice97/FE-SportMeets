@@ -4,40 +4,9 @@ import IndividualMessage from "../components/IndividualMessage";
 import SendMessage from "../components/SendMessage";
 import { getEventMessages } from "../api";
 
-// const testMessages = [
-//   {
-//     message_id: 1,
-//     message_body: "Hi, I would like to join this event",
-//     sender: "DannyBoy",
-//     event_id: 1,
-//     created_at: "2024-07-12 17:00:00",
-//   },
-//   {
-//     message_id: 2,
-//     message_body: "Welcome to the world of Social Meets Up!",
-//     sender: "Mo",
-//     event_id: 1,
-//     created_at: "2024-07-12 17:02:00",
-//   },
-//   {
-//     message_id: 3,
-//     message_body: "Hey the weather is looking nice!",
-//     sender: "Alex",
-//     event_id: 1,
-//     created_at: "2024-07-12 17:05:00",
-//   },
-// ];
-
-// const formattedMessages = testMessages.map((message) => {
-//   return {
-//     ...message,
-//     created_at: new Date(message.created_at).toLocaleString(),
-//   };
-// });
-
 export default function MessagesScreen({ route, navigation }) {
   const userContext = "Mo"; // This needs to be updated once we implement user context upon login
-  const { name, id } = route.params; // id will be needed grabbing correct messages from DB
+  const { name, id } = route.params;
 
   const [messages, setMessages] = useState([]);
   useEffect(() => {

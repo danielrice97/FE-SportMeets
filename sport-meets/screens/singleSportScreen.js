@@ -7,7 +7,6 @@ import { updateSpacesAvailable } from "../api";
 
 export default function SingleSportScreen({ navigation, route }) {
   const { event } = route.params;
-  console.log(event)
   const [spacesAvailable, setSpacesAvailable] = useState(
     event.event_spaces_available
   );

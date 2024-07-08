@@ -9,7 +9,7 @@ const Item = ({ event, navigation }) => {
       <Card.Title style={styles.title}>{event.event_name}</Card.Title>
       <Card.Divider />
       <Card.Image style={styles.image} source={{ uri: event.event_img_url }} />
-      <br />
+      <Card.Divider />
       <View style={styles.textContainer}>
         <Text style={styles.text}>
           <Text style={styles.bold}>Event description: </Text>

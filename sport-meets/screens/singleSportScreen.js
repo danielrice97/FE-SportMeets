@@ -49,13 +49,13 @@ export default function SingleSportScreen({ navigation, route }) {
             style={{ padding: 0 }}
             source={{ uri: event.event_img_url }}
           />
-          <Text style={styles.fonts}>Location: {event.location}</Text>
+          <Text style={styles.fonts}>Location: {event.event_location}</Text>
           <Text style={styles.fonts}>
             Sport:{" "}
             {event.event_category.slice(0, 1).toUpperCase() +
               event.event_category.slice(1)}
           </Text>
-          <Text style={styles.fonts}>Description: {event.description}</Text>
+          <Text style={styles.fonts}>Description: {event.event_description}</Text>
           <View style={styles.avatarHostContain}>
             <Card.Image
               source={{ uri: organiser.avatar_url }}
@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 9,
     fontSize: 25,
-    fontFamily: "Sans Serif",
   },
   user: {
     flexDirection: "row",

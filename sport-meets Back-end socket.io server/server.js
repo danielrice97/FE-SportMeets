@@ -38,4 +38,4 @@ STEPS
 3. When enter chat is clicked and user goes to the room 
 a.client aspect: socket.io  needs to emit a msg to server to join that event room (socket.send), as well as any msgs need to be sent using room id + msg
 b.server: using socket.io it needs to have 2 socket event handlers (join and send to room event handlers)
-/*
+*/

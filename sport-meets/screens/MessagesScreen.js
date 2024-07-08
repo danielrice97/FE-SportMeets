@@ -1,47 +1,52 @@
 import { View, FlatList, StyleSheet } from "react-native";
-import React from "react";
+import {useState, useEffect} from "react";
 import IndividualMessage from "../components/IndividualMessage";
 import SendMessage from "../components/SendMessage";
+import { getEventMessages } from "../api";
 
-const testMessages = [
-  {
-    message_id: 1,
-    message_body: "Hi, I would like to join this event",
-    sender: "DannyBoy",
-    event_id: 1,
-    created_at: "2024-07-12 17:00:00",
-  },
-  {
-    message_id: 2,
-    message_body: "Welcome to the world of Social Meets Up!",
-    sender: "Mo",
-    event_id: 1,
-    created_at: "2024-07-12 17:02:00",
-  },
-  {
-    message_id: 3,
-    message_body: "Hey the weather is looking nice!",
-    sender: "Alex",
-    event_id: 1,
-    created_at: "2024-07-12 17:05:00",
-  },
-];
+// const testMessages = [
+//   {
+//     message_id: 1,
+//     message_body: "Hi, I would like to join this event",
+//     sender: "DannyBoy",
+//     event_id: 1,
+//     created_at: "2024-07-12 17:00:00",
+//   },
+//   {
+//     message_id: 2,
+//     message_body: "Welcome to the world of Social Meets Up!",
+//     sender: "Mo",
+//     event_id: 1,
+//     created_at: "2024-07-12 17:02:00",
+//   },
+//   {
+//     message_id: 3,
+//     message_body: "Hey the weather is looking nice!",
+//     sender: "Alex",
+//     event_id: 1,
+//     created_at: "2024-07-12 17:05:00",
+//   },
+// ];
 
-const formattedMessages = testMessages.map((message) => {
-  return {
-    ...message,
-    created_at: new Date(message.created_at).toLocaleString(),
-  };
-});
+// const formattedMessages = testMessages.map((message) => {
+//   return {
+//     ...message,
+//     created_at: new Date(message.created_at).toLocaleString(),
+//   };
+// });
 
 export default function MessagesScreen({ route, navigation }) {
   const userContext = "Mo"; // This needs to be updated once we implement user context upon login
   const { name, id } = route.params; // id will be needed grabbing correct messages from DB
-  const [messages, setMessages] = React.useState(formattedMessages);
-  React.useEffect(() => {
+
+  const [messages, setMessages] = useState([]);
+  useEffect(() => {
     navigation.setOptions({
       title: name,
     });
+    getEventMessages(id).then((messages) => {
+      setMessages(messages)
+    })
   }, []);
 
   function handleSend(newMessage) {

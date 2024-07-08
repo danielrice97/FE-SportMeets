@@ -8,6 +8,8 @@ export function getAllEvents(queries) {
   const { params } = queries;
   if (params.category === "select") {
     return baseApi.get("/events").then(({ data }) => {
+      console.log(data.events);
+
       return data.events;
     });
   } else {

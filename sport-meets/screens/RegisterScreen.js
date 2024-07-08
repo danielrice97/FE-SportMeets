@@ -1,14 +1,47 @@
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
+import { useContext } from 'react';
+import { UserContext } from '../UserContext';
+import { postUser } from '../api';
 
 export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [avatarURL, setAvatarURL] = useState('');
+
+  const {setUser} =  useContext(UserContext)
+
+
+  const handleSetName = (localname) => {
+    setName(localname)
+  }
+
+  const handleSetUsername = (localusername) => {
+    setUsername(localusername)
+  }
+
+  const handleSetPassword = (localpassword) => {
+    setPassword(localpassword)
+  }
+
+  const handleSetAvatarURL = (localAvatarURL) => {
+    setAvatarURL(localAvatarURL)
+  }
 
   const handleRegister = () => {
-    console.log('User Registered:', { name, username, password });
-    navigation.navigate('UserProfile', { name, username });
+    newUser = {
+      "avatar_url": avatarURL,
+      "name": name,
+      "password": password,
+      "username": username
+    }
+
+    postUser(newUser).then(() => {
+      setUser(newUser)
+      navigation.navigate('Account')
+    })
+    
   };
 
   return (
@@ -18,20 +51,26 @@ export default function RegisterScreen({ navigation }) {
         style={styles.input}
         placeholder="Name"
         value={name}
-        onChangeText={setName}
+        onChangeText={handleSetName}
       />
       <TextInput
         style={styles.input}
         placeholder="Username"
         value={username}
-        onChangeText={setUsername}
+        onChangeText={handleSetUsername}
       />
       <TextInput
         style={styles.input}
         placeholder="Password"
         value={password}
-        onChangeText={setPassword}
+        onChangeText={handleSetPassword}
         secureTextEntry
+      />
+            <TextInput
+        style={styles.input}
+        placeholder="Avatar URL"
+        value={avatarURL}
+        onChangeText={handleSetAvatarURL}
       />
       <Button title="Register" onPress={handleRegister} />
     </View>

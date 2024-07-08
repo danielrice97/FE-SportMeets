@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { UserContext } from '../UserContext';
+import { useContext } from 'react';
+import { postEvent } from '../api';
+import { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { beginAsyncEvent } from 'react-native/Libraries/Performance/Systrace';
 
 export default function CreateEventScreen() {
   const [sportType, setSportType] = useState('');
@@ -8,17 +14,97 @@ export default function CreateEventScreen() {
   const [eventDescription, setEventDescription] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [eventLocation, setEventLocation] = useState('');
+  const [spaces, setSpaces] = useState('');
+
+
+  const [createdEvent, setCreatedEvent] = useState(false);
+
+
+  const {user} = useContext(UserContext)
+  const   { setSomethingChanged } =  useContext(UserContext)
+
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (!user) {
+      const timer = setTimeout(() => {
+        navigation.navigate('Account')
+      }, 1500);
+
+      // Cleanup the timeout if the component unmounts before the timeout is reached
+      return () => clearTimeout(timer);
+    }
+
+    if (createdEvent === true) {
+      const timer = setTimeout(() => {
+        navigation.navigate('Account')
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [createdEvent]);
+
 
   const handleCreateEvent = () => {
-    console.log('Event Created:', {
-      sportType,
-      eventName,
-      eventImage,
-      eventDescription,
-      eventDate,
-      eventLocation
-    });
-  };
+
+    const event_spaces_available = parseInt(spaces)
+
+    const testEvent = {
+      "event_name": eventName,
+      "event_img_url": eventImage,
+      "event_description": eventDescription,
+      "event_location": eventLocation,
+      "created_at": "2024-07-24 16:45:20", 
+      "event_spaces_available": event_spaces_available,
+      "event_category": sportType,
+      "event_organiser": user.username
+  }
+
+    postEvent(testEvent).then((data) => {
+      console.log(data)
+      setSomethingChanged(true)
+      setCreatedEvent(true)
+    })
+  }
+
+  const handleSportTypeChange = (lsportType) => {
+    setSportType(lsportType)
+  }
+
+  const handleSetEventName = (leventName) => {
+    setEventName(leventName)
+  }
+
+  const handleSetEventImage = (leventImage) => {
+    setEventImage(leventImage)
+  }
+
+  const handleSetEventDescription = (leventDescription) => {
+    setEventDescription(leventDescription)
+  }
+
+  const handlesetEventDate = (leventDate) => {
+    setEventDate(leventDate)
+  }
+
+  const handlesetEventLocation = (leventLocation) => {
+    setEventLocation(leventLocation)
+  }
+
+  const handleSetSpaces = (lspaces) => {
+    setSpaces(lspaces)
+  }
+
+  if(!user) {
+    return (<View style={styles.container}>
+      <Text style={styles.notloggedInLabel}>You must be registered/logged in to create an Event</Text>
+    </View>)
+  } else if (createdEvent === true) {
+    return (<View style={styles.container}>
+      <Text style={styles.notloggedInLabel}>You have created an Event</Text>
+    </View>)
+  } else {
 
   return (
     <View style={styles.container}>
@@ -27,46 +113,55 @@ export default function CreateEventScreen() {
         style={styles.input}
         placeholder="e.g., Football"
         value={sportType}
-        onChangeText={setSportType}
+        onChangeText={handleSportTypeChange}
       />
       <Text style={styles.label}>Event Name:</Text>
       <TextInput
         style={styles.input}
         placeholder="e.g., Sunday Casual Football"
         value={eventName}
-        onChangeText={setEventName}
+        onChangeText={handleSetEventName}
       />
       <Text style={styles.label}>Event Image URL:</Text>
       <TextInput
         style={styles.input}
         placeholder="e.g., http://example.com/image.png"
         value={eventImage}
-        onChangeText={setEventImage}
+        onChangeText={handleSetEventImage}
       />
       <Text style={styles.label}>Event Description:</Text>
       <TextInput
         style={styles.input}
         placeholder="e.g., Open to all abilities and ages"
         value={eventDescription}
-        onChangeText={setEventDescription}
+        onChangeText={handleSetEventDescription}
       />
       <Text style={styles.label}>Event Date:</Text>
       <TextInput
         style={styles.input}
         placeholder="e.g., 2024-07-15"
         value={eventDate}
-        onChangeText={setEventDate}
+        onChangeText={handlesetEventDate}
       />
       <Text style={styles.label}>Event Location:</Text>
       <TextInput
         style={styles.input}
         placeholder="e.g., Northcoders Leeds Office"
         value={eventLocation}
-        onChangeText={setEventLocation}
+        onChangeText={handlesetEventLocation}
       />
+      <Text style={styles.label}>Event Spaces:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="e.g., 2"
+        value={spaces}
+        onChangeText={handleSetSpaces}
+      />
+
       <Button title="Create Event" onPress={handleCreateEvent} />
     </View>
   );
+}
 }
 
 const styles = StyleSheet.create({
@@ -77,6 +172,10 @@ const styles = StyleSheet.create({
   label: {
     marginTop: 20,
     fontSize: 16,
+  },
+  notloggedInLabel: {
+    marginTop: 200,
+    fontSize: 35,
   },
   input: {
     borderWidth: 1,

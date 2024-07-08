@@ -3,7 +3,7 @@ import axios from "axios";
 const baseApi = axios.create({
   baseURL: "https://be-sportmeets-py.onrender.com/api/sportmeets",
 });
-console.log(baseApi);
+
 export function getAllEvents(queries) {
   const { params } = queries;
   if (params.category === "select") {
@@ -16,6 +16,7 @@ export function getAllEvents(queries) {
     });
   }
 }
+
 
 export function getUser(username) {
   return baseApi.get(`/users/${username}`).then(({data}) => {
@@ -53,3 +54,15 @@ export function postEvent(newEvent) {
     return err
   })
 }
+
+export function updateSpacesAvailable(event) {
+  const eventID = event.event_id
+  const eventBody = {...event, 
+    event_spaces_available: event.event_spaces_available - 1
+  }
+  delete eventBody.event_id
+  return baseApi.patch(`/events/${eventID}`, eventBody).then(({data}) => {
+    return data.UpdatedEvent
+  })
+}
+

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Dropdown from "../components/Dropdown";
 import SportCards from "../components/SportCards";
 import { Input } from "@rneui/themed";
-// import MapView from "react-native-maps";
 
 export default function HomeScreen({ navigation }) {
   const [category, setCategory] = useState("select");

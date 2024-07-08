@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import React, { useEffect, useState, useCallback  } from "react";
+import { SafeAreaView, StyleSheet, View, ScrollView } from "react-native";
 import { Text, Card, Button } from "@rneui/themed";
 import { getAllEvents } from "../api";
+import { useFocusEffect } from "@react-navigation/native";
+
 
 const Item = ({ event, navigation }) => {
   return (
+
     <Card containerStyle={styles.card}>
       <Card.Title style={styles.title}>{event.event_name}</Card.Title>
       <Card.Divider />
       <Card.Image style={styles.image} source={{ uri: event.event_img_url }} />
-      <br />
+      <Card.Divider />
       <View style={styles.textContainer}>
         <Text style={styles.text}>
           <Text style={styles.bold}>Event description: </Text>
@@ -44,7 +47,8 @@ const Item = ({ event, navigation }) => {
 export default function SportCards({ navigation, category }) {
   const [events, setEvents] = useState([]);
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
     const queries = {
       params: {
         category: category,
@@ -53,10 +57,10 @@ export default function SportCards({ navigation, category }) {
     getAllEvents(queries).then((events) => {
       setEvents(events);
     });
-  }, [category]);
+  }, [category]));
 
   return (
-    <SafeAreaView>
+      <SafeAreaView>
       {events.map((item) => (
         <Item key={item.event_id} event={item} navigation={navigation} />
       ))}

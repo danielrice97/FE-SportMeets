@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 
 export default function SingleSportScreen({ navigation, route,  }) {
-  const [spacesAvailable, setSpacesAvailable] = useState(20)
+  const [spacesAvailable, setSpacesAvailable] = useState(event.event_spaces_available)
   const {event} = route.params
   const users = [{
     username: "Mo",

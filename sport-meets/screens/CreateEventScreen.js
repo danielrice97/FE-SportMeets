@@ -6,6 +6,7 @@ import { postEvent } from '../api';
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { beginAsyncEvent } from 'react-native/Libraries/Performance/Systrace';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function CreateEventScreen() {
   const [sportType, setSportType] = useState('');
@@ -21,6 +22,8 @@ export default function CreateEventScreen() {
 
 
   const {user} = useContext(UserContext)
+  const   { somethingChanged } =  useContext(UserContext)
+
   const   { setSomethingChanged } =  useContext(UserContext)
 
 
@@ -38,6 +41,7 @@ export default function CreateEventScreen() {
 
     if (createdEvent === true) {
       const timer = setTimeout(() => {
+        setCreatedEvent(false)
         navigation.navigate('Account')
       }, 1500);
 
@@ -62,8 +66,7 @@ export default function CreateEventScreen() {
   }
 
     postEvent(testEvent).then((data) => {
-      console.log(data)
-      setSomethingChanged(true)
+      setSomethingChanged(!somethingChanged)
       setCreatedEvent(true)
     })
   }
@@ -107,7 +110,7 @@ export default function CreateEventScreen() {
   } else {
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.label}>Type of Sport:</Text>
       <TextInput
         style={styles.input}
@@ -159,7 +162,7 @@ export default function CreateEventScreen() {
       />
 
       <Button title="Create Event" onPress={handleCreateEvent} />
-    </View>
+    </ScrollView>
   );
 }
 }

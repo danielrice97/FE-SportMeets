@@ -5,19 +5,17 @@ import { useContext } from 'react';
 
 export default function AccountScreen({ navigation }) {
   const {user} = useContext(UserContext)
-
-  if (!user) {
+  if (user.username) {
+      return navigation.navigate('UserProfile')
+  }else {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Account</Text>
         <Button title="Register" onPress={() => navigation.navigate('Register')} />
         <Button title="Login" onPress={() => navigation.navigate('Login')} />
       </View>
-    );
-  } else {
-  return navigation.navigate('UserProfile')
-  }
-
+    )
+  } 
 }
 
 const styles = StyleSheet.create({

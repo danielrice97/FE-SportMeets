@@ -48,7 +48,6 @@ export function postUser(newUser) {
 
 export function postEvent(newEvent) {
   return baseApi.post("/events", newEvent).then((data) => {
-    console.log("Success")
     return data
   }).catch((err)=> {
     return err
@@ -66,11 +65,44 @@ export function updateSpacesAvailable(event) {
   })
 }
 
-export function getUserEvents(username) {
-  return baseApi.get(`/user-events/${username}`).then(({data}) => {
-    return data.UserEvents;
+export function deleteEvent(event_id) {
+  return baseApi.delete(`/events/${event_id}`).then((data) => {
+    return data
+  }).catch((err)=> {
+    return err
   })
-  .catch((err) => {
+}
+
+export function joinEvent(userevent) {
+  return baseApi.post(`/join-event`, userevent).then((data) => {
+    return data
+  }).catch((err)=> {
+    return err
+  })
+}
+
+export function getUserEvents() {
+  return baseApi.get("/userevents").then(({data}) => {
+    return data["UserEvents"]
+  })
+}
+
+export function getUserEventsByID(event_id) {
+  return baseApi.get(`/userevents/${event_id}`).then(({data}) => {
+    return data["UserEvents"]
+  })
+}
+
+export function getAllUsers() {
+  return baseApi.get("/users").then(({data})=> {
+    return data["users"]
+  })
+}
+
+export function getEventsByUsername(username) {
+  return baseApi.get(`/user-events/${username}`).then(({data})=> {
+    return data["UserEvents"]
+  }).catch((err) => {
     console.log(err);
   })
 }

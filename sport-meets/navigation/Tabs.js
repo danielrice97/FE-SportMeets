@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 
 export default function Tabs() {
   const {user} = useContext(UserContext)
-  if (!user) {
+  if (!user.username) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({

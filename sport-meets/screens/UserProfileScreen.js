@@ -6,22 +6,23 @@ import { useContext } from 'react';
 import { getEventByOrganiser } from '../api';
 export default function UserProfileScreen() {
   
-  const {user} = useContext(UserContext)
-  const {setUser} = useContext(UserContext)
+  const {user, setUser, somethingChanged, setSomethingChanged} = useContext(UserContext)
+  
   const [events, setEvents] = useState([])
 
-  const {somethingChanged} = useContext(UserContext)
 
   useEffect(()=> {
     getEventByOrganiser(user.username).then((data)=> {
       setEvents(data)
     })
+
   }, [somethingChanged])
 
   const handleLogout = () => {
     setUser(undefined)
     navigation.navigate("Account")
   }
+
 
   return (
     <View style={styles.container}>
@@ -37,7 +38,7 @@ export default function UserProfileScreen() {
         renderItem={({ item }) => <EventCard event={item} />}
         contentContainerStyle={styles.eventsList}
       />
-      <Button title="Log out" onPress={handleLogout}/>
+      <Button title={"Log Out"} onPress={handleLogout}></Button>
     </View>
   );
 }

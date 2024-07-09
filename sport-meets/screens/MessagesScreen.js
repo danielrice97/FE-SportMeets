@@ -3,9 +3,11 @@ import {useState, useEffect} from "react";
 import IndividualMessage from "../components/IndividualMessage";
 import SendMessage from "../components/SendMessage";
 import { getEventMessages } from "../api";
+import { UserContext } from '../UserContext';
+import { useContext } from 'react';
 
 export default function MessagesScreen({ route, navigation }) {
-  const userContext = "Mo"; // This needs to be updated once we implement user context upon login
+  const {user} = useContext(UserContext)
   const { name, id } = route.params;
 
   const [messages, setMessages] = useState([]);
@@ -22,7 +24,7 @@ export default function MessagesScreen({ route, navigation }) {
     const newMessageObject = {
       message_id: messages.length + 1,
       message_body: newMessage,
-      sender: userContext,
+      sender: user.username,
       event_id: id,
       created_at: new Date().toLocaleString(),
     };

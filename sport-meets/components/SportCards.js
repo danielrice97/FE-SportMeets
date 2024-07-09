@@ -1,13 +1,11 @@
-import React, { useEffect, useState, useCallback  } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { SafeAreaView, StyleSheet, View, ScrollView } from "react-native";
 import { Text, Card, Button } from "@rneui/themed";
 import { getAllEvents } from "../api";
 import { useFocusEffect } from "@react-navigation/native";
 
-
 const Item = ({ event, navigation }) => {
   return (
-
     <Card containerStyle={styles.card}>
       <Card.Title style={styles.title}>{event.event_name}</Card.Title>
       <Card.Divider />
@@ -49,26 +47,38 @@ export default function SportCards({ navigation, category }) {
 
   useFocusEffect(
     useCallback(() => {
-    const queries = {
-      params: {
-        category: category,
-      },
-    };
-    getAllEvents(queries).then((events) => {
-      setEvents(events);
-    });
-  }, [category]));
+      const queries = {
+        params: {
+          category: category,
+        },
+      };
+      getAllEvents(queries).then((events) => {
+        setEvents(events);
+      });
+    }, [category])
+  );
 
   return (
-      <SafeAreaView>
-      {events.map((item) => (
-        <Item key={item.event_id} event={item} navigation={navigation} />
-      ))}
+    <SafeAreaView>
+      {events.length === 0 ? (
+        <Text style={styles.feedback}>
+          There are no events for this sport category
+        </Text>
+      ) : (
+        events.map((item) => (
+          <Item key={item.event_id} event={item} navigation={navigation} />
+        ))
+      )}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  feedback: {
+    fontSize: 20,
+    color: "blue",
+    textAlign: "center",
+  },
   card: {
     borderRadius: 10,
     shadowColor: "grey",

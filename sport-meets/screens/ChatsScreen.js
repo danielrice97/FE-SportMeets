@@ -5,34 +5,40 @@ import {
   StyleSheet,
   Pressable,
 } from "react-native";
-import React from "react";
-
-const testEventChats = [
-  {
-    event_id: 1,
-    event_name: "Football with the boys",
-    created_at: "13-07-2024 14:00:00",
-    event_organiser: "Mo",
-  },
-  {
-    event_id: 2,
-    event_name: "Golf practice at the range",
-    created_at: "12-08-2024 11:00:00",
-    event_organiser: "Mo",
-  },
-  {
-    event_id: 3,
-    event_name: "Rugby in the rain",
-    created_at: "21-09-2024 17:00:00",
-    event_organiser: "Mo",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { ScrollView } from "react-native-gesture-handler";
+import { getEventsByUsername } from "../api";
+import { UserContext } from "../UserContext";
+import { useContext } from "react";
 
 export default function ChatsScreen({navigation}) {
+
+  const {user, setUser} = useContext(UserContext)
+  const [chats, setChats] = useState(undefined)
+  useEffect(()=> {
+    getEventsByUsername(user.username).then((Chats)=> {
+      setChats(Chats)
+    })
+  
+  }, [])
+
+
+if(chats === undefined) {
+    return (
+      <View style={styles.container}>
+        <ScrollView>
+        <Text style={styles.emptytext}>{"You are not in any chats"}</Text>
+        </ScrollView>
+      </View>
+    );  } 
+    
+else {
+
   return (
     <View style={styles.container}>
+      <ScrollView>
       <FlatList
-        data={testEventChats}
+        data={chats}
         keyExtractor={(item) => item.event_id}
         renderItem={({ item }) => (
           <Pressable style={styles.event} onPress={() => navigation.navigate("Messages", {
@@ -47,8 +53,10 @@ export default function ChatsScreen({navigation}) {
           </Pressable>
         )}
       />
+      </ScrollView>
     </View>
   );
+}
 }
 
 const styles = StyleSheet.create({
@@ -66,6 +74,12 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
+    justifyContent: "space-between",
+    textAlign: "center",
+  },
+  emptytext: {
+    flex: 1,
+    fontSize: 30,
     justifyContent: "space-between",
     textAlign: "center",
   },

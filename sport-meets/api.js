@@ -148,5 +148,8 @@ export function getEventMessages(event_id) {
 export function getAllCategories() {
   return baseApi.get(`/categories`).then(({ data }) => {
     return data.Event_Categories;
-  });
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 }

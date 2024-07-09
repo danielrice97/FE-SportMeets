@@ -1,7 +1,17 @@
 import { Picker } from "@react-native-picker/picker";
+import { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
+import { getAllCategories } from "../api";
 
 const Dropdown = ({ category, setCategory }) => {
+  const [updateCategories, setUpdateCategories] = useState([]);
+
+  useEffect(() => {
+    getAllCategories().then((categories) => {
+      setUpdateCategories(categories);
+    });
+  }, []);
+
   return (
     <View>
       <Text
@@ -17,10 +27,15 @@ const Dropdown = ({ category, setCategory }) => {
           setCategory(value);
         }}>
         <Picker.Item label='Select' value='select' />
-        <Picker.Item label='Football' value='football' />
-        <Picker.Item label='Basketball' value='basketball' />
-        <Picker.Item label='Hockey' value='hockey' />
-        <Picker.Item label='Golf' value='Golf' />
+        {updateCategories.map((categoryObject, index) => {
+          return (
+            <Picker.Item
+              key={index}
+              label={categoryObject.event_category}
+              value={categoryObject.event_category}
+            />
+          );
+        })}
       </Picker>
     </View>
   );

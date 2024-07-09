@@ -33,3 +33,5 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+../sport-meets\ Back-end\ socket.io\ server/node_modules

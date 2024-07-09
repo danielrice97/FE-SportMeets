@@ -9,13 +9,12 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import UserProfileScreen from "../screens/UserProfileScreen";
 import { useContext } from "react";
 import { UserContext } from "../UserContext";
+
 const Tab = createBottomTabNavigator();
 
 export default function Tabs() {
   const {user} = useContext(UserContext)
-
-  console.log(user)
-  if (!user) {
+  if (!user.username) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({

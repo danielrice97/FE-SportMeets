@@ -1,8 +1,11 @@
 import { Text, View, StyleSheet } from "react-native";
+import { UserContext } from '../UserContext';
+import { useContext } from 'react';
 
 export default function IndividualMessage({ item }) {
-  const userContext = "Mo"; // This needs to be upadted once we implement user context upon login
-  const isUserMessage = userContext === item.sender;
+  const {user} = useContext(UserContext)
+  const isUserMessage = user.username === item.sender;
+  
   return (
     <View
       style={[

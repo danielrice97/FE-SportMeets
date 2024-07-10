@@ -1,28 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, FlatList, StyleSheet, Button } from 'react-native';
-import EventCard from '../components/EventCard'; 
-import { UserContext } from '../UserContext';
-import { useContext } from 'react';
-import { getEventByOrganiser } from '../api';
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, FlatList, StyleSheet, Button } from "react-native";
+import EventCard from "../components/EventCard";
+import { UserContext } from "../UserContext";
+import { useContext } from "react";
+import { getEventByOrganiser } from "../api";
 export default function UserProfileScreen() {
-  
-  const {user, setUser, somethingChanged, setSomethingChanged} = useContext(UserContext)
-  
-  const [events, setEvents] = useState([])
+  const { user, setUser, somethingChanged, setSomethingChanged } =
+    useContext(UserContext);
 
+  const [events, setEvents] = useState([]);
 
-  useEffect(()=> {
-    getEventByOrganiser(user.username).then((data)=> {
-      setEvents(data)
-    })
-
-  }, [somethingChanged])
+  useEffect(() => {
+    getEventByOrganiser(user.username).then((data) => {
+      setEvents(data);
+    });
+  }, [somethingChanged]);
 
   const handleLogout = () => {
-    setUser(undefined)
-    navigation.navigate("Account")
-  }
-
+    setUser({ username: "", name: "", password: "", avatar_url: "" });
+    navigation.navigate("Account");
+  };
 
   return (
     <View style={styles.container}>
@@ -34,7 +31,7 @@ export default function UserProfileScreen() {
       <Text style={styles.eventsTitle}>Your Events</Text>
       <FlatList
         data={events}
-        keyExtractor={item => item.event_id}
+        keyExtractor={(item) => item.event_id}
         renderItem={({ item }) => <EventCard event={item} />}
         contentContainerStyle={styles.eventsList}
       />
@@ -47,10 +44,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   userInfo: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 20,
   },
   avatar: {
@@ -60,16 +57,16 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 10,
   },
   username: {
     fontSize: 18,
-    color: '#888',
+    color: "#888",
   },
   eventsTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   eventsList: {

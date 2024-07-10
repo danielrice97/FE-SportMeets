@@ -1,47 +1,45 @@
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
-import { useContext } from 'react';
-import { UserContext } from '../UserContext';
-import { postUser } from '../api';
+import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../UserContext";
+import { postUser } from "../api";
 
 export default function RegisterScreen({ navigation }) {
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [avatarURL, setAvatarURL] = useState('');
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [avatarURL, setAvatarURL] = useState("");
 
-  const {setUser} =  useContext(UserContext)
-
+  const { setUser } = useContext(UserContext);
 
   const handleSetName = (localname) => {
-    setName(localname)
-  }
+    setName(localname);
+  };
 
   const handleSetUsername = (localusername) => {
-    setUsername(localusername)
-  }
+    setUsername(localusername);
+  };
 
   const handleSetPassword = (localpassword) => {
-    setPassword(localpassword)
-  }
+    setPassword(localpassword);
+  };
 
   const handleSetAvatarURL = (localAvatarURL) => {
-    setAvatarURL(localAvatarURL)
-  }
+    setAvatarURL(localAvatarURL);
+  };
 
   const handleRegister = () => {
     newUser = {
-      "avatar_url": avatarURL,
-      "name": name,
-      "password": password,
-      "username": username
-    }
+      avatar_url: avatarURL,
+      name: name,
+      password: password,
+      username: username,
+    };
 
     postUser(newUser).then(() => {
-      setUser(newUser)
-      navigation.navigate('Account')
-    })
-    
+      setUser(newUser);
+      navigation.navigate("Account");
+    });
   };
 
   return (
@@ -49,30 +47,30 @@ export default function RegisterScreen({ navigation }) {
       <Text style={styles.title}>Register</Text>
       <TextInput
         style={styles.input}
-        placeholder="Name"
+        placeholder='Name'
         value={name}
         onChangeText={handleSetName}
       />
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder='Username'
         value={username}
         onChangeText={handleSetUsername}
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder='Password'
         value={password}
         onChangeText={handleSetPassword}
         secureTextEntry
       />
-            <TextInput
+      <TextInput
         style={styles.input}
-        placeholder="Avatar URL"
+        placeholder='Avatar URL'
         value={avatarURL}
         onChangeText={handleSetAvatarURL}
       />
-      <Button title="Register" onPress={handleRegister} />
+      <Button title='Register' onPress={handleRegister} />
     </View>
   );
 }
@@ -81,20 +79,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
+    gap: 20,
   },
   title: {
     fontSize: 24,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
+    fontWeight: "bold",
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     padding: 10,
     marginTop: 10,
-    borderRadius: 5,
+    borderRadius: 10,
   },
 });
-
-

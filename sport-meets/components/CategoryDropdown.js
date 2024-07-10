@@ -4,24 +4,28 @@ import { getEventCategories } from "../api";
 import { useEffect, useState } from "react";
 
 const CategoryDropdown = ({ category, setCategory }) => {
+  const [serverCategories, setsServerCategories] = useState([]);
 
-  const [serverCategories, setsServerCategories] = useState([])
-
-  useEffect(()=> {
-    getEventCategories().then((categories)=> {
-
-      const local = categories.map((category)=> {
-          return <Picker.Item key={category["event_category"]}label={category["event_category"]} value={category["event_category"]} />
-      })
-        setsServerCategories(local)
-    })
-  }, [])
+  useEffect(() => {
+    getEventCategories().then((categories) => {
+      const local = categories.map((category) => {
+        return (
+          <Picker.Item
+            key={category["event_category"]}
+            label={category["event_category"]}
+            value={category["event_category"]}
+          />
+        );
+      });
+      setsServerCategories(local);
+    });
+  }, []);
 
   return (
     <View>
       <Text
         style={styles.search}
-        aria-label='Label for Username'
+        aria-label='Choose a sport'
         id='labelUsername'>
         Choose a sport
       </Text>

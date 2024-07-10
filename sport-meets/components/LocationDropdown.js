@@ -4,24 +4,28 @@ import { getEventLocations } from "../api";
 import { useEffect, useState } from "react";
 
 const LocationDropdown = ({ location, setLocation }) => {
+  const [serverLocations, setsServerLocations] = useState([]);
 
-  const [serverLocations, setsServerLocations] = useState([])
-
-  useEffect(()=> {
-    getEventLocations().then((locations)=> {
-
-      const local = locations.map((location)=> {
-          return <Picker.Item key={location["event_location"]}label={location["event_location"]} value={location["event_location"]} />
-      })
-        setsServerLocations(local)
-    })
-  }, [])
+  useEffect(() => {
+    getEventLocations().then((locations) => {
+      const local = locations.map((location) => {
+        return (
+          <Picker.Item
+            key={location["event_location"]}
+            label={location["event_location"]}
+            value={location["event_location"]}
+          />
+        );
+      });
+      setsServerLocations(local);
+    });
+  }, []);
 
   return (
     <View>
       <Text
         style={styles.search}
-        aria-label='Label for Username'
+        aria-label='Choose a Location'
         id='labelUsername'>
         Choose a Location
       </Text>

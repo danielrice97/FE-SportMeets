@@ -13,48 +13,43 @@ import { joinEvent } from "../api";
 
 export default function SingleSportScreen({ navigation, route }) {
   const { event } = route.params;
-  
+
   const [spacesAvailable, setSpacesAvailable] = useState(
     event.event_spaces_available
   );
 
-  const {user, setUser} = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext);
 
-  const [hasAlreadyJoined, sethasAlreadyJoined] = useState("")
+  const [hasAlreadyJoined, sethasAlreadyJoined] = useState("");
 
-  const [users, setUsers] = useState("")
+  const [users, setUsers] = useState("");
 
-  const [organiser, setOrganiser] = useState("")
-
+  const [organiser, setOrganiser] = useState("");
 
   useEffect(() => {
-  
-    getUserEventsByID(event.event_id).then((user_events)=> {
+    getUserEventsByID(event.event_id).then((user_events) => {
       for (user_event of user_events) {
         if (user["username"] === user_event["username"]) {
-          sethasAlreadyJoined(true)
+          sethasAlreadyJoined(true);
         }
       }
-    })
+    });
 
-    getAllUsers().then((data)=> {
-          setUsers(data)
-          const organiserlocal = data.find(
-            (user) => user.username === event.event_organiser
-          );
+    getAllUsers().then((data) => {
+      setUsers(data);
+      const organiserlocal = data.find(
+        (user) => user.username === event.event_organiser
+      );
 
-          setOrganiser(organiserlocal)
-    })
+      setOrganiser(organiserlocal);
+    });
+  }, []);
 
-  }, [])
+  const [isLoading, setIsLoading] = useState(false);
 
+  if (isLoading) return <Text>We are adding you the event...</Text>;
 
-  const [isLoading, setIsLoading] = useState(false)
- 
-  if(isLoading) return <Text>We are adding you the event...</Text>
-  
   if (user.username.length === 0) {
-
     return (
       <ScrollView>
         <View>
@@ -64,70 +59,71 @@ export default function SingleSportScreen({ navigation, route }) {
                 {event.event_name}
               </Text>
             </Card.Title>
+
             <Card.Divider />
             <Card.Image
               style={{ padding: 0 }}
               source={{ uri: event.event_img_url }}
             />
+            <Card.Divider />
             <Text style={styles.text}>
-               <Text style={styles.bold}>Event Location: </Text>
-               {event.event_location}
-               </Text>
-  
-  
-               
+              <Text style={styles.bold}>Event Location: </Text>
+              {event.event_location}
+            </Text>
+
             <Text style={styles.text}>
-            <Text style={styles.bold}>
-              Sport:</Text>
+              <Text style={styles.bold}>Sport: </Text>
               {event.event_category.slice(0, 1).toUpperCase() +
                 event.event_category.slice(1)}
             </Text>
-  
+
             <Text style={styles.text}>
-            <Text style={styles.bold}>
-            Description: </Text>
-            {event.event_description}
+              <Text style={styles.bold}>Description: </Text>
+              {event.event_description}
             </Text>
-  
+
             <View style={styles.avatarHostContain}>
               <Card.Image
                 source={{ uri: organiser.avatar_url }}
                 style={styles.avatar}
               />
               <Text style={styles.text}>
-              <Text style={styles.bold}>
-              Host:
-              </Text>
-              {event.event_organiser}
+                <Text style={styles.bold}>Host: </Text>
+                {event.event_organiser}
               </Text>
             </View>
             <Text style={styles.text}>
-            <Text style={styles.bold}>
-            Spaces Available: 
+              <Text style={styles.bold}>Spaces Available: </Text>
+              {spacesAvailable}
             </Text>
-             {spacesAvailable}</Text>
-  
-            <Text style={styles.text}>
-            <Text style={styles.bold}>Event Date:</Text>
-             {event.created_at}
-             </Text>
-             { spacesAvailable <= 0 ?<Button disabled={true} onPress={()=>{
-                   console.log('Button has been disabled')
-                      }}> <Text>No Spaces Left to Join</Text></Button> 
-                      : 
-                      <Button
-              title={`Join ${event.event_name}`}
-              onPress={() => {
-              
-                alert("You must be logged in or registered to join an event")
 
-                navigation.navigate("Account")
-  
-              }}/>}
+            <Text style={styles.text}>
+              <Text style={styles.bold}>Event Date: </Text>
+              {event.created_at}
+            </Text>
+            {spacesAvailable <= 0 ? (
+              <Button
+                disabled={true}
+                onPress={() => {
+                  console.log("Button has been disabled");
+                }}>
+                {" "}
+                <Text>No Spaces Left to Join</Text>
+              </Button>
+            ) : (
+              <Button
+                title={`Join ${event.event_name}`}
+                onPress={() => {
+                  alert("You must be logged in or registered to join an event");
+
+                  navigation.navigate("Account");
+                }}
+              />
+            )}
           </Card>
         </View>
-        </ScrollView>
-    )
+      </ScrollView>
+    );
   } else if (hasAlreadyJoined) {
     return (
       <ScrollView>
@@ -144,159 +140,141 @@ export default function SingleSportScreen({ navigation, route }) {
               source={{ uri: event.event_img_url }}
             />
             <Text style={styles.text}>
-               <Text style={styles.bold}>Event Location: </Text>
-               {event.event_location}
-               </Text>
-  
-  
-               
+              <Text style={styles.bold}>Event Location: </Text>
+              {event.event_location}
+            </Text>
+
             <Text style={styles.text}>
-            <Text style={styles.bold}>
-              Sport:</Text>
+              <Text style={styles.bold}>Sport: </Text>
               {event.event_category.slice(0, 1).toUpperCase() +
                 event.event_category.slice(1)}
             </Text>
-  
+
             <Text style={styles.text}>
-            <Text style={styles.bold}>
-            Description: </Text>
-            {event.event_description}
+              <Text style={styles.bold}>Description: </Text>
+              {event.event_description}
             </Text>
-  
+
             <View style={styles.avatarHostContain}>
               <Card.Image
                 source={{ uri: organiser.avatar_url }}
                 style={styles.avatar}
               />
               <Text style={styles.text}>
-              <Text style={styles.bold}>
-              Host:
-              </Text>
-              {event.event_organiser}
+                <Text style={styles.bold}>Host: </Text>
+                {event.event_organiser}
               </Text>
             </View>
             <Text style={styles.text}>
-            <Text style={styles.bold}>
-            Spaces Available: 
+              <Text style={styles.bold}>Spaces Available: </Text>
+              {spacesAvailable}
             </Text>
-             {spacesAvailable}</Text>
-  
+
             <Text style={styles.text}>
-            <Text style={styles.bold}>Event Date:</Text>
-             {event.created_at}
-             </Text>
-             <Button
+              <Text style={styles.bold}>Event Date: </Text>
+              {event.created_at}
+            </Text>
+            <Button
               title={`Go to ${event.event_name} Chat`}
               onPress={() => {
-                
-                  navigation.navigate("Messages", {
-                    name: event.event_name,
-                    id: event.event_id
-                   })
-              }}/>
+                navigation.navigate("Messages", {
+                  name: event.event_name,
+                  id: event.event_id,
+                });
+              }}
+            />
           </Card>
         </View>
-        </ScrollView>
-    )
-
+      </ScrollView>
+    );
   } else {
-
-  return (
-    <ScrollView>
-      <View>
-        <Card style={styles.container}>
-          <Card.Title>
-            <Text style={styles.fonts} h2>
-              {event.event_name}
-            </Text>
-          </Card.Title>
-          <Card.Divider />
-          <Card.Image
-            style={{ padding: 0 }}
-            source={{ uri: event.event_img_url }}
-          />
-          <Text style={styles.text}>
-             <Text style={styles.bold}>Event Location: </Text>
-             {event.event_location}
-             </Text>
-
-
-             
-          <Text style={styles.text}>
-          <Text style={styles.bold}>
-            Sport:</Text>
-            {event.event_category.slice(0, 1).toUpperCase() +
-              event.event_category.slice(1)}
-          </Text>
-
-          <Text style={styles.text}>
-          <Text style={styles.bold}>
-          Description: </Text>
-          {event.event_description}
-          </Text>
-
-          <View style={styles.avatarHostContain}>
+    return (
+      <ScrollView>
+        <View>
+          <Card style={styles.container}>
+            <Card.Title>
+              <Text style={styles.fonts} h2>
+                {event.event_name}
+              </Text>
+            </Card.Title>
+            <Card.Divider />
             <Card.Image
-              source={{ uri: organiser.avatar_url }}
-              style={styles.avatar}
+              style={{ padding: 0 }}
+              source={{ uri: event.event_img_url }}
             />
             <Text style={styles.text}>
-            <Text style={styles.bold}>
-            Host:
+              <Text style={styles.bold}>Event Location: </Text>
+              {event.event_location}
             </Text>
-            {event.event_organiser}
+            <Text style={styles.text}>
+              <Text style={styles.bold}>Sport: </Text>
+              {event.event_category.slice(0, 1).toUpperCase() +
+                event.event_category.slice(1)}
             </Text>
-          </View>
-          <Text style={styles.text}>
-          <Text style={styles.bold}>
-          Spaces Available: 
-          </Text>
-           {spacesAvailable}</Text>
 
-          <Text style={styles.text}>
-          <Text style={styles.bold}>Event Date:</Text>
-           {event.created_at}
-           </Text>
-           { spacesAvailable <= 0 ?    
-           <Button disabled={true} onPress={()=>{
-             console.log('Button has been disabled')
+            <Text style={styles.text}>
+              <Text style={styles.bold}>Description: </Text>
+              {event.event_description}
+            </Text>
+
+            <View style={styles.avatarHostContain}>
+              <Card.Image
+                source={{ uri: organiser.avatar_url }}
+                style={styles.avatar}
+              />
+              <Text style={styles.text}>
+                <Text style={styles.bold}>Host: </Text>
+                {event.event_organiser}
+              </Text>
+            </View>
+            <Text style={styles.text}>
+              <Text style={styles.bold}>Spaces Available: </Text>
+              {spacesAvailable}
+            </Text>
+
+            <Text style={styles.text}>
+              <Text style={styles.bold}>Event Date: </Text>
+              {event.created_at}
+            </Text>
+            {spacesAvailable <= 0 ? (
+              <Button
+                disabled={true}
+                onPress={() => {
+                  console.log("Button has been disabled");
                 }}>
-            <Text>No More Spaces Available</Text>
-              </Button> :  
-            <Button
-            title={`Join ${event.event_name}`}
-            onPress={() => {
-              
-              setIsLoading(true)
-               updateSpacesAvailable(event)
-               .then((data)=>{
-                return joinEvent({ "username": user["username"],
-                  "event_id": event["event_id"]}).then((data) => {
-                    console.log(data)
+                <Text>No More Spaces Available</Text>
+              </Button>
+            ) : (
+              <Button
+                title={`Join ${event.event_name}`}
+                onPress={() => {
+                  setIsLoading(true);
+                  updateSpacesAvailable(event).then((data) => {
+                    return joinEvent({
+                      username: user["username"],
+                      event_id: event["event_id"],
+                    }).then((data) => {
+                      console.log(data);
 
-                    setIsLoading(false)
-                    setSpacesAvailable((current) => {
-                      return current - 1;
+                      setIsLoading(false);
+                      setSpacesAvailable((current) => {
+                        return current - 1;
+                      });
+                      navigation.navigate("Messages", {
+                        name: event.event_name,
+                        id: event.event_id,
+                      });
+                      return data;
                     });
-                    navigation.navigate("Messages", {
-                      name: event.event_name,
-                      id: event.event_id
-                     })
-                    return data
-                  })
-              
-               })
-
-            }}/>
-            
-            }
-        </Card>
-      </View>
+                  });
+                }}
+              />
+            )}
+          </Card>
+        </View>
       </ScrollView>
-  )
-}
-
-
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -307,7 +285,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 9,
     fontSize: 25,
-    fontWeight: 'bold',
+    fontWeight: 800,
+    color: "black",
   },
   user: {
     flexDirection: "row",
@@ -331,12 +310,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 20,
+    marginTop: 10,
   },
   bold: {
     fontWeight: "bold",
+    fontSize: 22,
   },
   text: {
     fontSize: 16,
     marginBottom: 10,
-  }
+    fontSize: 20,
+  },
 });

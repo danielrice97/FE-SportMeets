@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import React, { useState } from "react";
 import CategoryDropdown from "../components/CategoryDropdown";
 import LocationDropdown from "../components/LocationDropdown";
 import SportCards from "../components/SportCards";
-import { Input } from "@rneui/themed";
 
 export default function HomeScreen({ navigation }) {
   const [category, setCategory] = useState("select");
@@ -11,15 +10,21 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ScrollView>
-      <Text style={styles.headerText}>SportMeets</Text>
+      <Image
+        style={styles.image}
+        source={{
+          uri: "https://sportmeets.com/img/static/logo-beta.png",
+        }}></Image>
       <View style={styles.container}>
-      <LocationDropdown location={location} setLocation={setLocation} />
+        <LocationDropdown location={location} setLocation={setLocation} />
         <CategoryDropdown category={category} setCategory={setCategory} />
       </View>
 
-      {/* <MapView style={styles.map} /> */}
-
-      <SportCards navigation={navigation} location={location} category={category} />
+      <SportCards
+        navigation={navigation}
+        location={location}
+        category={category}
+      />
     </ScrollView>
   );
 }
@@ -34,12 +39,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     padding: 10,
   },
-  headerText: {
-    color: "#1e90ff",
-    fontWeight: "bold",
-    fontSize: 36,
+  image: {
+    height: 40,
+    width: 300,
+    margin: "auto",
+    marginTop: 25,
     marginBottom: 20,
-    textAlign: "center",
   },
   input: {
     height: 50,

@@ -29,7 +29,7 @@ export default function CreateEventScreen() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (!user) {
+    if (user.username.length === 0) {
       const timer = setTimeout(() => {
         navigation.navigate('Account')
       }, 1500);

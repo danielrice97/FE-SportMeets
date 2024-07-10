@@ -1,16 +1,21 @@
 import { Picker } from "@react-native-picker/picker";
-import { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { getAllCategories } from "../api";
+import { getEventLocations } from "../api";
+import { useEffect, useState } from "react";
 
-const Dropdown = ({ category, setCategory }) => {
-  const [updateCategories, setUpdateCategories] = useState([]);
+const LocationDropdown = ({ location, setLocation }) => {
 
-  useEffect(() => {
-    getAllCategories().then((categories) => {
-      setUpdateCategories(categories);
-    });
-  }, []);
+  const [serverLocations, setsServerLocations] = useState("")
+
+  useEffect(()=> {
+    getEventLocations().then((locations)=> {
+
+      const local = locations.map((location)=> {
+          return <Picker.Item key={location["event_location"]}label={location["event_location"]} value={location["event_location"]} />
+      })
+        setsServerLocations(local)
+    })
+  }, [])
 
   return (
     <View>
@@ -18,24 +23,18 @@ const Dropdown = ({ category, setCategory }) => {
         style={styles.search}
         aria-label='Label for Username'
         id='labelUsername'>
-        Choose a sport
+        Choose a Location
       </Text>
       <Picker
         style={styles.dropdown}
-        selectedValue={category}
+        selectedValue={location}
         onValueChange={(value) => {
-          setCategory(value);
+          setLocation(value);
         }}>
+          {}
+        
         <Picker.Item label='Select' value='select' />
-        {updateCategories.map((categoryObject, index) => {
-          return (
-            <Picker.Item
-              key={index}
-              label={categoryObject.event_category}
-              value={categoryObject.event_category}
-            />
-          );
-        })}
+        {serverLocations}
       </Picker>
     </View>
   );
@@ -64,4 +63,4 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
 });
-export default Dropdown;
+export default LocationDropdown;

@@ -4,7 +4,9 @@ import EventCard from "../components/EventCard";
 import { UserContext } from "../UserContext";
 import { useContext } from "react";
 import { getEventByOrganiser } from "../api";
-export default function UserProfileScreen() {
+import { useNavigation } from '@react-navigation/native';
+
+export default function UserProfileScreen({navigation}) {
   const { user, setUser, somethingChanged, setSomethingChanged } =
     useContext(UserContext);
 

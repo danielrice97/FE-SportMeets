@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const CategoryDropdown = ({ category, setCategory }) => {
 
-  const [serverCategories, setsServerCategories] = useState("")
+  const [serverCategories, setsServerCategories] = useState([])
 
   useEffect(()=> {
     getEventCategories().then((categories)=> {
@@ -31,8 +31,6 @@ const CategoryDropdown = ({ category, setCategory }) => {
         onValueChange={(value) => {
           setCategory(value);
         }}>
-          {}
-        
         <Picker.Item label='Select' value='select' />
         {serverCategories}
       </Picker>

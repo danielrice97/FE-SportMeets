@@ -47,7 +47,6 @@ export default function SportCards({ navigation, category, location }) {
 
   useFocusEffect(
     useCallback(() => {
-      console.log(category, location);
   
       let queries = { params: {} };
       if (category !== "select") {

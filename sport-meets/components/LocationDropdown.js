@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const LocationDropdown = ({ location, setLocation }) => {
 
-  const [serverLocations, setsServerLocations] = useState("")
+  const [serverLocations, setsServerLocations] = useState([])
 
   useEffect(()=> {
     getEventLocations().then((locations)=> {
@@ -31,8 +31,6 @@ const LocationDropdown = ({ location, setLocation }) => {
         onValueChange={(value) => {
           setLocation(value);
         }}>
-          {}
-        
         <Picker.Item label='Select' value='select' />
         {serverLocations}
       </Picker>

@@ -23,18 +23,9 @@ export default function ChatsScreen({navigation}) {
         getEventsByUsername(user.username).then((Chats)=> {
           setChats(Chats)
       })} 
-    }, [])
+    }, [user])
 
   )
-
-  useEffect(()=> {
-    
-    if(user.username) {
-    getEventsByUsername(user.username).then((Chats)=> {
-      setChats(Chats)
-    })
-    }
-  }, [user])
   
        
   

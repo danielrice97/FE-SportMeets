@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, Pressable } from "react-native";
 import { Text, Card, Button } from "@rneui/themed";
 import { useState } from "react";
 import ChatsScreen from "./ChatsScreen";
@@ -39,9 +39,6 @@ export default function SingleSportScreen({ navigation, route }) {
 
     getAllUsers().then((data)=> {
           setUsers(data)
-
-          console.log(data)
-
           const organiserlocal = data.find(
             (user) => user.username === event.event_organiser
           );
@@ -114,7 +111,11 @@ export default function SingleSportScreen({ navigation, route }) {
             <Text style={styles.bold}>Event Date:</Text>
              {event.created_at}
              </Text>
-             <Button
+             { spacesAvailable <= 0 ?<Button disabled={true} onPress={()=>{
+                   console.log('Button has been disabled')
+                      }}> <Text>No Spaces Left to Join</Text></Button> 
+                      : 
+                      <Button
               title={`Join ${event.event_name}`}
               onPress={() => {
               
@@ -122,7 +123,7 @@ export default function SingleSportScreen({ navigation, route }) {
 
                 navigation.navigate("Account")
   
-              }}/>
+              }}/>}
           </Card>
         </View>
         </ScrollView>
@@ -256,7 +257,13 @@ export default function SingleSportScreen({ navigation, route }) {
           <Text style={styles.bold}>Event Date:</Text>
            {event.created_at}
            </Text>
-           <Button
+           { spacesAvailable <= 0 ?    
+           <Button disabled={true} onPress={()=>{
+             console.log('Button has been disabled')
+                }}>
+            <Text>No More Spaces Available</Text>
+              </Button> :  
+            <Button
             title={`Join ${event.event_name}`}
             onPress={() => {
               
@@ -279,11 +286,10 @@ export default function SingleSportScreen({ navigation, route }) {
                   })
               
                })
-               .catch((err)=>{
-           
-               })
 
             }}/>
+            
+            }
         </Card>
       </View>
       </ScrollView>

@@ -5,11 +5,12 @@ import { useState } from "react";
 import ChatsScreen from "./ChatsScreen";
 import { getAllUsers, updateSpacesAvailable } from "../api";
 import { useContext } from "react";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { UserContext } from "../UserContext";
 import { getUserEvents } from "../api";
 import { getUserEventsByID } from "../api";
 import { joinEvent } from "../api";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function SingleSportScreen({ navigation, route }) {
   const { event } = route.params;
@@ -26,24 +27,45 @@ export default function SingleSportScreen({ navigation, route }) {
 
   const [organiser, setOrganiser] = useState("");
 
-  useEffect(() => {
-    getUserEventsByID(event.event_id).then((user_events) => {
-      for (user_event of user_events) {
-        if (user["username"] === user_event["username"]) {
-          sethasAlreadyJoined(true);
+  useFocusEffect(
+    useCallback(() => {
+      getUserEventsByID(event.event_id).then((user_events) => {
+        for (user_event of user_events) {
+          if (user["username"] === user_event["username"]) {
+            sethasAlreadyJoined(true);
+          }
         }
-      }
-    });
+      });
 
-    getAllUsers().then((data) => {
-      setUsers(data);
-      const organiserlocal = data.find(
-        (user) => user.username === event.event_organiser
-      );
+      getAllUsers().then((data) => {
+        setUsers(data);
+        const organiserlocal = data.find(
+          (user) => user.username === event.event_organiser
+        );
 
-      setOrganiser(organiserlocal);
-    });
-  }, []);
+        setOrganiser(organiserlocal);
+      });
+    }, [])
+  );
+
+  // useEffect(() => {
+  //   getUserEventsByID(event.event_id).then((user_events) => {
+  //     for (user_event of user_events) {
+  //       if (user["username"] === user_event["username"]) {
+  //         sethasAlreadyJoined(true);
+  //       }
+  //     }
+  //   });
+
+  //   getAllUsers().then((data) => {
+  //     setUsers(data);
+  //     const organiserlocal = data.find(
+  //       (user) => user.username === event.event_organiser
+  //     );
+
+  //     setOrganiser(organiserlocal);
+  //   });
+  // }, []);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -106,7 +128,8 @@ export default function SingleSportScreen({ navigation, route }) {
                 disabled={true}
                 onPress={() => {
                   console.log("Button has been disabled");
-                }}>
+                }}
+              >
                 {" "}
                 <Text>No Spaces Left to Join</Text>
               </Button>
@@ -241,7 +264,8 @@ export default function SingleSportScreen({ navigation, route }) {
                 disabled={true}
                 onPress={() => {
                   console.log("Button has been disabled");
-                }}>
+                }}
+              >
                 <Text>No More Spaces Available</Text>
               </Button>
             ) : (

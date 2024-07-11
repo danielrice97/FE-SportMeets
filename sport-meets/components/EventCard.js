@@ -63,18 +63,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
     color: "#555",
     fontSize: 18,
-    fontWeight: 600,
   },
   eventDate: {
     marginTop: 5,
     color: "#555",
     fontSize: 18,
-    fontWeight: 600,
   },
   eventLocation: {
     marginTop: 5,
     color: "#555",
     fontSize: 18,
-    fontWeight: 600,
   },
 });

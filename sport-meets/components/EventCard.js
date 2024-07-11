@@ -1,24 +1,20 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, Button } from 'react-native';
-import { deleteEvent } from '../api';
-import { useContext } from 'react';
-import { UserContext } from '../UserContext';
+import React from "react";
+import { View, Text, Image, StyleSheet, Button } from "react-native";
+import { deleteEvent } from "../api";
+import { useContext } from "react";
+import { UserContext } from "../UserContext";
 
 export default function EventCard({ event }) {
+  const { somethingChanged } = useContext(UserContext);
+  const { setSomethingChanged } = useContext(UserContext);
 
-
-  const   { somethingChanged } =  useContext(UserContext)
-  const   { setSomethingChanged } =  useContext(UserContext)
-
-  
-  
   const handleDelete = () => {
-    const event_id = event.event_id
-    deleteEvent(event_id).then(()=> {
-      alert("Deleted Event")
-      setSomethingChanged(!somethingChanged)
-    })
-  }
+    const event_id = event.event_id;
+    deleteEvent(event_id).then(() => {
+      alert("Deleted Event");
+      setSomethingChanged(!somethingChanged);
+    });
+  };
 
   return (
     <View style={styles.card}>
@@ -28,7 +24,10 @@ export default function EventCard({ event }) {
         <Text style={styles.eventDescription}>{event.event_description}</Text>
         <Text style={styles.eventDate}>{event.created_at}</Text>
         <Text style={styles.eventLocation}>{event.event_location}</Text>
-        <Button onPress={handleDelete}title={"Delete"}style={styles.deleteButton}></Button>
+        <Button
+          onPress={handleDelete}
+          title={"Delete"}
+          style={styles.deleteButton}></Button>
       </View>
     </View>
   );
@@ -37,39 +36,45 @@ export default function EventCard({ event }) {
 const styles = StyleSheet.create({
   card: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     borderRadius: 8,
-    overflow: 'hidden',
+    overflow: "hidden",
     marginVertical: 10,
   },
   deleteButton: {
     width: "50%",
     height: "20%",
-    color: '#555',
+    color: "#555",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 150,
   },
   details: {
     padding: 10,
   },
   eventName: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 22,
+    fontWeight: "bold",
   },
   eventDescription: {
     marginTop: 5,
-    color: '#555',
+    color: "#555",
+    fontSize: 18,
+    fontWeight: 600,
   },
   eventDate: {
     marginTop: 5,
-    color: '#888',
+    color: "#555",
+    fontSize: 18,
+    fontWeight: 600,
   },
   eventLocation: {
     marginTop: 5,
-    color: '#888',
+    color: "#555",
+    fontSize: 18,
+    fontWeight: 600,
   },
 });

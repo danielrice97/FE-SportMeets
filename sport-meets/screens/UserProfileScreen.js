@@ -4,9 +4,9 @@ import EventCard from "../components/EventCard";
 import { UserContext } from "../UserContext";
 import { useContext } from "react";
 import { getEventByOrganiser } from "../api";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
-export default function UserProfileScreen({navigation}) {
+export default function UserProfileScreen({ navigation }) {
   const { user, setUser, somethingChanged, setSomethingChanged } =
     useContext(UserContext);
 
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     color: "#888",
   },
   eventsTitle: {
-    fontSize: 20,
+    fontSize: 23,
     fontWeight: "bold",
     marginBottom: 10,
   },

@@ -156,7 +156,7 @@ export default function CreateEventScreen() {
         />
         <Text style={styles.label}>Event Spaces:</Text>
         <TextInput
-          style={styles.input}
+          style={styles.inputLast}
           placeholder='e.g., 2'
           value={spaces}
           onChangeText={handleSetSpaces}
@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
   label: {
     marginTop: 20,
     fontSize: 16,
+    fontWeight: "bold",
   },
   notloggedInLabel: {
     paddingTop: 100,
@@ -187,6 +188,14 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     padding: 10,
     marginTop: 5,
-    borderRadius: 5,
+    borderRadius: 10,
+  },
+  inputLast: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 10,
+    marginTop: 5,
+    borderRadius: 10,
+    marginBottom: 20,
   },
 });

@@ -47,25 +47,24 @@ export default function SportCards({ navigation, category, location }) {
 
   useFocusEffect(
     useCallback(() => {
-  
       let queries = { params: {} };
       if (category !== "select") {
         queries.params.category = category;
       }
-  
+
       if (location !== "select") {
         queries.params.location = location;
       }
-  
+
       getAllEvents(queries)
         .then((events) => {
           setEvents(events);
         })
         .catch((error) => {
-          console.error('Failed to fetch events:', error);
+          console.error("Failed to fetch events:", error);
         });
     }, [category, location])
-  )
+  );
 
   return (
     <SafeAreaView>
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    fontSize: 20,
+    fontSize: 23,
     fontWeight: "bold",
   },
   image: {
@@ -110,11 +109,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   text: {
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 10,
   },
   bold: {
     fontWeight: "bold",
+    fontSize: 20,
   },
   button: {
     borderRadius: 0,

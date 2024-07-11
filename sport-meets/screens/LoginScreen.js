@@ -60,28 +60,33 @@ export default function LoginScreen({ navigation }) {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Incorrect Login Details</Text>
-        <Button
-          style={styles.button}
-          title='Try Login Again'
-          onPress={tryAgain}
-        />
+        <View style={styles.button}>
+          <Button title='Try Login Again' onPress={tryAgain} />
 
-        <Button style={styles.button} title='Register' onPress={Register} />
+          <Button title='Register' onPress={Register} />
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  button: {
+    flex: 1,
+    gap: 10,
+  },
   container: {
     flex: 1,
     padding: 20,
     justifyContent: "center",
+    gap: 20,
   },
+
   title: {
     fontSize: 24,
     marginBottom: 20,
     textAlign: "center",
+    fontWeight: "bold",
   },
   input: {
     borderWidth: 1,

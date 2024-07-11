@@ -1,3 +1,3 @@
 import { io } from "socket.io-client";
 
-export const socket = io("http://localhost:3000"); //   currently needs to be hosted locally
+export const socket = io("https://be-socket-io.onrender.com"); //   currently needs to be hosted locally

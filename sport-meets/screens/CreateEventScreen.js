@@ -101,8 +101,6 @@ export default function CreateEventScreen() {
     setSpaces(lspaces);
   };
 
-  console.log(user.username.length);
-
   if (user.username.length === 0) {
     return (
       <View style={styles.container}>

@@ -48,24 +48,6 @@ export default function SingleSportScreen({ navigation, route }) {
     }, [])
   );
 
-  // useEffect(() => {
-  //   getUserEventsByID(event.event_id).then((user_events) => {
-  //     for (user_event of user_events) {
-  //       if (user["username"] === user_event["username"]) {
-  //         sethasAlreadyJoined(true);
-  //       }
-  //     }
-  //   });
-
-  //   getAllUsers().then((data) => {
-  //     setUsers(data);
-  //     const organiserlocal = data.find(
-  //       (user) => user.username === event.event_organiser
-  //     );
-
-  //     setOrganiser(organiserlocal);
-  //   });
-  // }, []);
 
   const [isLoading, setIsLoading] = useState(false);
 

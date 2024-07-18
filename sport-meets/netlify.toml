@@ -1,1 +1,3 @@
 [build]
+command = "npx expo build:web"
+publish = "sport-meets/web-build"

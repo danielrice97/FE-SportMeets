@@ -1,0 +1,12 @@
+[build]
+  base = "sport-meets"
+  command = "npx expo export:web"
+  publish = "web-build"
+
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/express-server"
+  status = 200

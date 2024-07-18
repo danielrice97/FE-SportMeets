@@ -1,3 +1,4 @@
 [build]
-command = "npx expo export:web"
+command = "npm install webpack webpack-cli --save-dev"
+commandtwo = "npx expo export:web"
 publish = "web-build"
